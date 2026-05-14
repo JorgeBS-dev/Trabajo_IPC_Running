@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="556.0" prefWidth="853.0" spacing="30.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER_LEFT" prefHeight="556.0" prefWidth="853.0" spacing="30.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Registro de Usuario">
          <font>
@@ -82,7 +82,7 @@
          </children>
       </VBox>
       
-      <VBox alignment="CENTER" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <Label fx:id="mensajeLabel" textFill="RED" wrapText="true" />
             <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" text="Registrarse">

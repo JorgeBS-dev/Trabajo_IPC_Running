@@ -1,22 +1,26 @@
-actúa como un Ingeniero de Software Senior y Diseñador de UI especializado en JavaFX. Necesito rediseñar visualmente los archivos FXML de mi proyecto 'MapaDemo' aplicando un sistema de diseño profesional.
+Actúa como un Lead UI/UX Designer y desarrollador experto en JavaFX. Necesito rediseñar la interfaz de 'MapaDemo' siguiendo una estética minimalista, limpia y profesional, basada estrictamente en la regla 60-30-10.
 
-1. Paleta de Colores (Regla 60-30-10):
+1. Paleta de Colores Técnica:
 
-60% (Base): Blanco Puro (#FFFFFF). Debe predominar en el fondo principal y áreas de trabajo.
+60% (Base): Blanco Puro (#FFFFFF) para el fondo del área de trabajo y paneles principales.
 
-30% (Contraste): Negro Neutro oscuro (#242428). Úsalo para barras laterales, encabezados secundarios o textos principales.
+30% (Contraste): Un Gris Carbón Mate (#333333) para la barra lateral y textos de cabecera. Acompáñalo de un Gris Humo muy claro (#F5F5F5) para fondos de inputs y áreas secundarias, manteniendo la armonía del 30%.
 
-10% (Acento): Naranja Strava (#FC6100). Úsalo exclusivamente para botones de acción, estados activos, iconos clave y elementos de 'llamada a la acción'.
+10% (Acento): Naranja Strava (#FC6100) para botones de acción (CTA), estados activos y elementos críticos de navegación.
 
-2. Requisitos de Estilo y Layout:
+2. Directrices de Estilo (Look & Feel):
 
-Alineación: Todo el contenido debe estar estrictamente alineado a la izquierda.
+Alineación: Diseño riguroso alineado a la izquierda. Nada de centrar elementos de forma arbitraria.
 
-Tipografía: Usa fuentes sans-serif modernas (Segoe UI o Roboto) con jerarquía clara de tamaños.
+Componentes:
 
-Componentes: Mejora visualmente los botones (con bordes redondeados y efectos hover), TextFields y contenedores para que parezca una aplicación moderna tipo SaaS.
+Botones: Bordes redondeados suaves (8px), sin degradados, colores planos con efecto hover sutil.
 
-Estructura: Separa el diseño en un archivo style.css y el archivo mapa.fxml.
+Inputs: Estilo 'flat' con un borde muy fino que cambie al naranja de acento al ganar el foco.
+
+Sidebar: Debe ocupar el área del 30% con el gris oscuro, creando un contraste fuerte pero elegante con el área de trabajo blanca.
+
+Tipografía: Prioriza legibilidad absoluta usando 'Segoe UI' o 'System'.
 
 3. Entregables:
 

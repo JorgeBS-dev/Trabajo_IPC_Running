@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="556.0" prefWidth="853.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- ===== BARRA SUPERIOR ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Avatar + nombre usuario -->
+                <Label fx:id="avatarLabel" text="👤" />
+                <Label fx:id="usuarioLabel" text="Hola, jpgarcia" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Botón importar GPX centrado -->
+                <Button fx:id="importarGPXButton" mnemonicParsing="false"
+                        prefHeight="35.0" prefWidth="150.0" text="Importar GPX" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Cerrar sesión + ajustes -->
+                <Button fx:id="cerrarSesionButton" mnemonicParsing="false"
+                        prefHeight="35.0" text="Cerrar sesión" />
+                <Label text="⚙" />
+            </children>
+            <padding>
+                <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <!-- ===== PANEL IZQUIERDO (menú lateral) ===== -->
+    <left>
+        <VBox prefWidth="180.0" spacing="0.0" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <Separator />
+
+                <!-- Cabecera lista -->
+                <Label text="Lista de Actividades">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+
+                <Separator />
+
+                <!-- Entrada "Resumen General" seleccionada -->
+                <Label fx:id="resumenGeneralLabel" text="🏠  Resumen General">
+                    <padding>
+                        <Insets bottom="6.0" left="10.0" right="10.0" top="8.0" />
+                    </padding>
+                </Label>
+
+                <!-- Actividades individuales -->
+                <Hyperlink fx:id="actividadLink1" text="Entrenamiento Gandía">
+                    <padding>
+                        <Insets bottom="4.0" left="10.0" right="10.0" top="4.0" />
+                    </padding>
+                </Hyperlink>
+
+                <Hyperlink fx:id="actividadLink2" text="Subida Mondúber">
+                    <padding>
+                        <Insets bottom="4.0" left="10.0" right="10.0" top="4.0" />
+                    </padding>
+                </Hyperlink>
+
+                <!-- Lista dinámica de actividades -->
+                <ListView fx:id="actividadesListView" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+    </left>
+
+    <!-- ===== CONTENIDO PRINCIPAL (dashboard) ===== -->
+    <center>
+        <VBox spacing="20.0" BorderPane.alignment="TOP_LEFT">
+            <children>
+
+                <!-- Título -->
+                <Label fx:id="tituloDashboardLabel" text="Resumen General de Mayo 2026">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+
+                <!-- Grid de estadísticas 2x2 -->
+                <GridPane hgap="0.0" vgap="0.0">
+
+                    <!-- Fila 0: Distancia | Tiempo -->
+                    <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT">
+                        <children>
+                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                <children>
+                                    <Label text="Distancia:" />
+                                    <Label text="👟" />
+                                </children>
+                            </HBox>
+                            <Label fx:id="distanciaLabel" text="85,4 Km">
+                                <font>
+                                    <Font size="22.0" />
+                                </font>
+                            </Label>
+                        </children>
+                        <padding>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                    </VBox>
+
+                    <Separator GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               GridPane.rowSpan="3" orientation="VERTICAL" />
+
+                    <VBox spacing="8.0" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT">
+                        <children>
+                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                <children>
+                                    <Label text="Tiempo:" />
+                                    <Label text="⏱" />
+                                </children>
+                            </HBox>
+                            <Label fx:id="tiempoLabel" text="10 h 25 min">
+                                <font>
+                                    <Font size="22.0" />
+                                </font>
+                            </Label>
+                        </children>
+                        <padding>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                    </VBox>
+
+                    <!-- Separador horizontal -->
+                    <Separator GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               GridPane.columnSpan="3" />
+
+                    <!-- Fila 2: Ascenso | Descenso -->
+                    <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT">
+                        <children>
+                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                <children>
+                                    <Label text="Ascenso:" />
+                                    <Label text="⬆" />
+                                </children>
+                            </HBox>
+                            <Label fx:id="ascensoLabel" text="+1.250 m">
+                                <font>
+                                    <Font size="22.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="desnivPositivoLabel" text="Desnivel Positivo" />
+                        </children>
+                        <padding>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                    </VBox>
+
+                    <VBox spacing="8.0" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT">
+                        <children>
+                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                <children>
+                                    <Label text="Descenso:" />
+                                    <Label text="⬇" />
+                                </children>
+                            </HBox>
+                            <Label fx:id="descensoLabel" text="-1.180 m">
+                                <font>
+                                    <Font size="22.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="desnivNegativoLabel" text="Desnivel Negativo" />
+                        </children>
+                        <padding>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                    </VBox>
+
+                </GridPane>
+
+            </children>
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+        </VBox>
+    </center>
+
+</BorderPane>

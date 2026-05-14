@@ -7,17 +7,15 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="556.0" prefWidth="853.0"
-            stylesheets="@estilos.css"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="556.0" prefWidth="853.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- ===== BARRA SUPERIOR ===== -->
     <top>
@@ -44,8 +42,7 @@
                         </Hyperlink>
 
                         <!-- Cerrar sesión + ajustes -->
-                        <Button fx:id="cerrarSesionButton" mnemonicParsing="false"
-                                prefHeight="35.0" text="Cerrar sesión" />
+                        <Button fx:id="cerrarSesionButton" mnemonicParsing="false" prefHeight="35.0" text="Cerrar sesión" />
                         <Button fx:id="ajustesButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="45.0" text="⚙">
                             <font>
                                 <Font size="16.0" />
@@ -65,10 +62,10 @@
     <left>
         <HBox BorderPane.alignment="TOP_LEFT">
             <children>
-                <VBox prefWidth="180.0" spacing="0.0" HBox.hgrow="ALWAYS" styleClass="sidebar">
+                <VBox prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
                     <children>
                         <!-- Botón Añadir Actividad grande y visible -->
-                <Button fx:id="importarGPXButton" mnemonicParsing="false" prefHeight="60.0" maxWidth="1.7976931348623157E308" text="Añadir actividad" textAlignment="CENTER" styleClass="button-start" wrapText="true">
+                <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="60.0" styleClass="button-start" text="Añadir actividad" textAlignment="CENTER" wrapText="true">
                     <VBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                     </VBox.margin>
@@ -106,7 +103,7 @@
                             </padding>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="eliminarActividad1Button" text="X" styleClass="button-danger">
+                        <Button fx:id="eliminarActividad1Button" styleClass="button-danger" text="X">
                             <font>
                                 <Font name="System Bold" size="10.0" />
                             </font>
@@ -125,7 +122,7 @@
                             </padding>
                         </Hyperlink>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="eliminarActividad2Button" text="X" styleClass="button-danger">
+                        <Button fx:id="eliminarActividad2Button" styleClass="button-danger" text="X">
                             <font>
                                 <Font name="System Bold" size="10.0" />
                             </font>
@@ -151,42 +148,45 @@
             <children>
 
                 <!-- Título -->
-                <Label fx:id="tituloDashboardLabel" text="Resumen General de Mayo 2026" styleClass="label-title">
+                <Label fx:id="tituloDashboardLabel" styleClass="label-title" text="Resumen General de Mayo 2026">
                 </Label>
 
                 <!-- Grid de estadísticas 2x2 -->
                 <GridPane hgap="0.0" vgap="0.0">
 
                     <!-- Fila 0: Distancia | Tiempo -->
-                    <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="0"
-                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT" styleClass="card">
+                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <children>
-                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
-                                    <Label text="Distancia:" styleClass="label-secondary" />
-                                    <Label text="👟" />
+                                    <Label styleClass="label-secondary" text="Distancia:" />
+                                    <Label text="👟">
+                              <font>
+                                 <Font size="24.0" />
+                              </font></Label>
                                 </children>
                             </HBox>
-                            <Label fx:id="distanciaLabel" text="85,4 Km" styleClass="label-metric" />
+                            <Label fx:id="distanciaLabel" styleClass="label-metric" text="85,4 Km" />
                         </children>
                         <padding>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </padding>
                     </VBox>
 
-                    <Separator GridPane.columnIndex="1" GridPane.rowIndex="0"
-                               GridPane.rowSpan="3" orientation="VERTICAL" />
+                    <Separator orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3" />
 
-                    <VBox spacing="8.0" GridPane.columnIndex="2" GridPane.rowIndex="0"
-                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT" styleClass="card">
+                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="0">
                         <children>
-                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
-                                    <Label text="Tiempo:" styleClass="label-secondary" />
-                                    <Label text="⏱" />
+                                    <Label styleClass="label-secondary" text="Tiempo:" />
+                                    <Label text="⏱">
+                              <font>
+                                 <Font size="24.0" />
+                              </font></Label>
                                 </children>
                             </HBox>
-                            <Label fx:id="tiempoLabel" text="10 h 25 min" styleClass="label-metric" />
+                            <Label fx:id="tiempoLabel" styleClass="label-metric" text="10 h 25 min" />
                         </children>
                         <padding>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -194,43 +194,56 @@
                     </VBox>
 
                     <!-- Separador horizontal -->
-                    <Separator GridPane.columnIndex="0" GridPane.rowIndex="1"
-                               GridPane.columnSpan="3" />
+                    <Separator GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" />
 
                     <!-- Fila 2: Ascenso | Descenso -->
-                    <VBox spacing="8.0" GridPane.columnIndex="0" GridPane.rowIndex="2"
-                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT" styleClass="card">
+                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="2">
                         <children>
-                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
-                                    <Label text="Ascenso:" styleClass="label-secondary" />
-                                    <Label text="⬆" />
+                                    <Label styleClass="label-secondary" text="Ascenso:" />
+                                    <Label text="⬆">
+                              <font>
+                                 <Font size="24.0" />
+                              </font></Label>
                                 </children>
                             </HBox>
-                            <Label fx:id="ascensoLabel" text="+1.250 m" styleClass="label-metric" />
-                            <Label fx:id="desnivPositivoLabel" text="Desnivel Positivo" styleClass="label-secondary" />
+                            <Label fx:id="ascensoLabel" styleClass="label-metric" text="+1.250 m" />
+                            <Label fx:id="desnivPositivoLabel" styleClass="label-secondary" text="Desnivel Positivo" />
                         </children>
                         <padding>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </padding>
                     </VBox>
 
-                    <VBox spacing="8.0" GridPane.columnIndex="2" GridPane.rowIndex="2"
-                          prefWidth="300.0" prefHeight="120.0" alignment="TOP_LEFT" styleClass="card">
+                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="2">
                         <children>
-                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
-                                    <Label text="Descenso:" styleClass="label-secondary" />
-                                    <Label text="⬇" />
+                                    <Label styleClass="label-secondary" text="Descenso:" />
+                                    <Label text="⬇">
+                              <font>
+                                 <Font size="24.0" />
+                              </font></Label>
                                 </children>
                             </HBox>
-                            <Label fx:id="descensoLabel" text="-1.180 m" styleClass="label-metric" />
-                            <Label fx:id="desnivNegativoLabel" text="Desnivel Negativo" styleClass="label-secondary" />
+                            <Label fx:id="descensoLabel" styleClass="label-metric" text="-1.180 m" />
+                            <Label fx:id="desnivNegativoLabel" styleClass="label-secondary" text="Desnivel Negativo" />
                         </children>
                         <padding>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                         </padding>
                     </VBox>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
 
                 </GridPane>
 

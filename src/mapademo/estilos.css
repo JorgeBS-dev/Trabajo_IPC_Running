@@ -160,6 +160,17 @@
     -fx-background-color: -fx-primary-color;
 }
 
+/* Overlay Zoom Container */
+.map-overlay-zoom {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 2);
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+}
+
 /* Hover sutil en tarjetas */
 .card:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(255,87,34,0.15), 18, 0, 0, 5);

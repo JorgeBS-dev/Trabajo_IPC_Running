@@ -77,6 +77,18 @@
                 </Button>
                 <Separator />
 
+                <!-- Entrada "Resumen General" seleccionada -->
+                <Label fx:id="resumenGeneralLabel" text="🏠  Resumen General">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="8.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Label>
+
+                <Separator />
+
                 <!-- Cabecera lista -->
                 <Label text="Lista de Actividades">
                     <font>
@@ -84,15 +96,6 @@
                     </font>
                     <padding>
                         <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </Label>
-
-                <Separator />
-
-                <!-- Entrada "Resumen General" seleccionada -->
-                <Label fx:id="resumenGeneralLabel" text="🏠  Resumen General">
-                    <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="8.0" />
                     </padding>
                 </Label>
 

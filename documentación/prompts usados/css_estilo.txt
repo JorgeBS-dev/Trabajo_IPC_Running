@@ -1,0 +1,27 @@
+actúa como un Ingeniero de Software Senior y Diseñador de UI especializado en JavaFX. Necesito rediseñar visualmente los archivos FXML de mi proyecto 'MapaDemo' aplicando un sistema de diseño profesional.
+
+1. Paleta de Colores (Regla 60-30-10):
+
+60% (Base): Blanco Puro (#FFFFFF). Debe predominar en el fondo principal y áreas de trabajo.
+
+30% (Contraste): Negro Neutro oscuro (#242428). Úsalo para barras laterales, encabezados secundarios o textos principales.
+
+10% (Acento): Naranja Strava (#FC6100). Úsalo exclusivamente para botones de acción, estados activos, iconos clave y elementos de 'llamada a la acción'.
+
+2. Requisitos de Estilo y Layout:
+
+Alineación: Todo el contenido debe estar estrictamente alineado a la izquierda.
+
+Tipografía: Usa fuentes sans-serif modernas (Segoe UI o Roboto) con jerarquía clara de tamaños.
+
+Componentes: Mejora visualmente los botones (con bordes redondeados y efectos hover), TextFields y contenedores para que parezca una aplicación moderna tipo SaaS.
+
+Estructura: Separa el diseño en un archivo style.css y el archivo mapa.fxml.
+
+3. Entregables:
+
+Archivo style.css: Con variables de color al inicio y clases bien definidas.
+
+modificar fxml para que tengan relación de diseño entre ellos y que cumplan esta norma del 60-30-10
+
+Importante: No generes código Java ni lógica de controladores. Céntrate exclusivamente en el diseño visual y la estructura FXML. Haz que se vea limpio, espacioso y profesional."

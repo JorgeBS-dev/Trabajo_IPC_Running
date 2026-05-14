@@ -1,0 +1,156 @@
+/* =====================================================================
+   LA SAFOR - ESTILOS UI/UX (JavaFX CSS)
+   =====================================================================
+   Esquema de Color: 60-30-10 (Modo Claro)
+   - 60% Fondo Base: #F4F4F9 (Blanco roto)
+   - 30% Tarjetas/Paneles: #FFFFFF (Blanco puro)
+   - 10% Acento (CTAs): #FF5722
+
+   Principios Gestalt aplicados:
+   - Región Común: Paneles y tarjetas agrupan la información visualmente.
+   - Continuidad: Bordes redondeados de 16px.
+   - Semejanza: Elementos interactivos comparten la paleta de acento.
+   ===================================================================== */
+
+/* --- VARIABLES GLOBALES --- */
+* {
+    -fx-primary-color: #F4F4F9;
+    -fx-secondary-color: #FFFFFF;
+    -fx-accent-color: #FF5722;
+    -fx-text-primary: #333333;
+    -fx-text-muted: #7A7A7A;
+}
+
+/* --- 60% FONDO PRINCIPAL --- */
+.root {
+    -fx-background-color: -fx-primary-color;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* --- 30% CONTRASTE: BARRAS Y PANELES LATERALES --- */
+/* (Ley de la Región Común: agrupan la navegación principal) */
+.sidebar, .top-bar {
+    -fx-background-color: -fx-secondary-color;
+}
+
+/* --- 30% CONTRASTE: TARJETAS (Cards) --- */
+/* (Ley de la Región Común y Continuidad: profundidad y bordes redondeados) */
+.card {
+    -fx-background-color: -fx-secondary-color;
+    -fx-background-radius: 16px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 15, 0, 0, 4);
+}
+
+/* --- TEXTOS Y TIPOGRAFÍA --- */
+/* (Alta legibilidad para uso rápido) */
+.label {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.label-metric {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.label-secondary {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-text-muted;
+}
+
+/* --- 10% ACENTO: BOTONES PRINCIPALES Y CTA --- */
+/* (Ley de la Jerarquía Visual y Semejanza: guiando el pulgar) */
+.button {
+    -fx-background-color: -fx-accent-color;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 16px;
+    -fx-transition: -fx-background-color 0.3s;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-accent-color, 15%);
+    -fx-effect: dropshadow(three-pass-box, rgba(255,87,34,0.4), 8, 0, 0, 2);
+}
+
+.button:pressed {
+    -fx-background-color: derive(-fx-accent-color, -10%);
+    -fx-effect: none;
+}
+
+/* Botón prominente de Pausa/Play o Start */
+.button-start {
+    -fx-font-size: 15px;
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 25px; 
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+}
+
+/* Botón secundario (transparente con borde o sin fondo) */
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-text-muted;
+    -fx-border-radius: 8px;
+    -fx-text-fill: -fx-text-primary;
+}
+.button-secondary:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+}
+
+/* Botones de acción peligrosa (Eliminar) */
+.button-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FF3B30; /* Rojo alarma */
+    -fx-font-weight: bold;
+}
+.button-danger:hover {
+    -fx-background-color: rgba(255, 59, 48, 0.15);
+    -fx-background-radius: 8px;
+}
+
+/* --- ENLACES (Hyperlinks) --- */
+.hyperlink {
+    -fx-text-fill: -fx-text-primary;
+    -fx-underline: false;
+}
+.hyperlink:hover {
+    -fx-text-fill: -fx-accent-color;
+    -fx-underline: true;
+}
+
+/* --- SEPARADORES --- */
+.separator *.line {
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #E0E0E0;
+}
+
+/* --- LISTAS (Ej. Historial de Carreras) --- */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 10px;
+}
+.list-cell:filled:hover {
+    -fx-background-color: rgba(255,87,34,0.08);
+}
+.list-cell:filled:selected {
+    -fx-background-color: #F9EBE6; /* Naranja muy suave */
+    -fx-border-color: transparent transparent transparent -fx-accent-color;
+    -fx-border-width: 0 0 0 4px;
+}

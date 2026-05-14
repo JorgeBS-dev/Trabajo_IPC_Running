@@ -28,12 +28,6 @@
 
                 <Region HBox.hgrow="ALWAYS" />
 
-                <!-- Botón importar GPX centrado -->
-                <Button fx:id="importarGPXButton" mnemonicParsing="false"
-                        prefHeight="35.0" prefWidth="150.0" text="Importar GPX" />
-
-                <Region HBox.hgrow="ALWAYS" />
-
                 <!-- Cerrar sesión + ajustes -->
                 <Button fx:id="cerrarSesionButton" mnemonicParsing="false"
                         prefHeight="35.0" text="Cerrar sesión" />
@@ -49,6 +43,15 @@
     <left>
         <VBox prefWidth="180.0" spacing="0.0" BorderPane.alignment="TOP_LEFT">
             <children>
+                <!-- Botón Añadir Actividad grande y visible -->
+                <Button fx:id="importarGPXButton" mnemonicParsing="false" prefHeight="45.0" maxWidth="1.7976931348623157E308" text="Añadir actividad" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </VBox.margin>
+                </Button>
                 <Separator />
 
                 <!-- Cabecera lista -->

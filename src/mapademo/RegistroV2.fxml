@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:controller="mapademo.RegisterController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Panel Decorativo (Lado Izquierdo) -->
       <VBox alignment="CENTER" spacing="20.0" styleClass="hero-pane" HBox.hgrow="ALWAYS">
@@ -47,26 +47,52 @@
                         <VBox spacing="5.0">
                            <children>
                               <Label text="Nickname:" />
-                              <TextField fx:id="nicknameField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="jgarcia" />
+                               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                  <children>
+                                     <TextField fx:id="nicknameField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="jgarcia" HBox.hgrow="ALWAYS" />
+                                     <Label fx:id="nickStatus" text="" />
+                                  </children>
+                               </HBox>
+                               <VBox fx:id="nickRequirementsBox" managed="false" spacing="2.0" visible="false" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;">
+                                  <children>
+                                     <Label fx:id="nickLenLabel" text="• 6-15 caracteres" style="-fx-font-size: 11px;" />
+                                     <Label fx:id="nickCharLabel" text="• Letras, números, - o _" style="-fx-font-size: 11px;" />
+                                  </children>
+                               </VBox>
                            </children>
                         </VBox>
                         
                         <VBox spacing="5.0">
                            <children>
                               <Label text="Correo electrónico:" />
-                              <TextField fx:id="emailField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario@dominio.com" />
+                               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                  <children>
+                                     <TextField fx:id="emailField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario@dominio.com" HBox.hgrow="ALWAYS" />
+                                     <Label fx:id="emailStatus" text="" />
+                                  </children>
+                               </HBox>
                            </children>
                         </VBox>
                         
                         <VBox spacing="5.0">
                            <children>
                               <Label text="Contraseña:" />
-                              <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                 <children>
-                                    <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Ingresa tu contraseña" HBox.hgrow="ALWAYS" />
-                                    <ToggleButton fx:id="togglePasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
-                                 </children>
-                              </HBox>
+                               <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                  <children>
+                                     <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Ingresa tu contraseña" HBox.hgrow="ALWAYS" />
+                                     <ToggleButton fx:id="togglePasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
+                                     <Label fx:id="passStatus" text="" />
+                                  </children>
+                               </HBox>
+                               <VBox fx:id="passRequirementsBox" managed="false" spacing="2.0" visible="false" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;">
+                                  <children>
+                                     <Label fx:id="passLenLabel" text="• 8-20 caracteres" style="-fx-font-size: 11px;" />
+                                     <Label fx:id="passUpperLabel" text="• Una mayúscula" style="-fx-font-size: 11px;" />
+                                     <Label fx:id="passLowerLabel" text="• Una minúscula" style="-fx-font-size: 11px;" />
+                                     <Label fx:id="passDigitLabel" text="• Un dígito" style="-fx-font-size: 11px;" />
+                                     <Label fx:id="passSymbolLabel" text="• Un símbolo (!@#$%&amp;*()-+=)" style="-fx-font-size: 11px;" />
+                                  </children>
+                               </VBox>
                            </children>
                         </VBox>
                         
@@ -95,7 +121,7 @@
                                     <Label text="Avatar (Opcional):" />
                                     <HBox alignment="CENTER_LEFT" spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="35.0" text="Subir" />
+                                          <Button mnemonicParsing="false" onAction="#handleUploadAvatar" prefHeight="35.0" text="Subir" />
                                           <ImageView fx:id="avatarImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </HBox>
@@ -109,12 +135,12 @@
                   <VBox spacing="10.0">
                      <children>
                         <Label fx:id="mensajeLabel" textFill="RED" wrapText="true" />
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" text="Registrarse">
+                        <Button mnemonicParsing="false" onAction="#handleRegister" prefHeight="45.0" prefWidth="250.0" text="Registrarse">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Hyperlink fx:id="loginHyperlink" text="¿Ya tienes cuenta? Iniciar sesión" />
+                        <Hyperlink fx:id="loginHyperlink" onAction="#handleGoToLogin" text="¿Ya tienes cuenta? Iniciar sesión" />
                      </children>
                   </VBox>
                </children>

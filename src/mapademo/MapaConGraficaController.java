@@ -1,0 +1,236 @@
+package mapademo;
+
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Circle;
+import upv.ipc.sportlib.*;
+import java.io.File;
+import java.util.List;
+
+public class MapaConGraficaController {
+
+    @FXML private ScrollPane map_scrollpane;
+    @FXML private Pane map_pane;
+    @FXML private ImageView map_imageview;
+    @FXML private Slider zoom_slider;
+    @FXML private Label ritmoLabel;
+    @FXML private Label velocidadLabel;
+    @FXML private Label altitudLabel;
+    @FXML private LineChart<Number, Number> altitudChart;
+    @FXML private NumberAxis ejeDistancia;
+    @FXML private NumberAxis ejeAltitud;
+    @FXML private ListView<Activity> map_listview;
+    @FXML private Label usuarioLabel;
+    @FXML private Label avatarLabel;
+
+    private Activity currentActivity;
+    private Polyline route;
+    private SportActivityApp app = SportActivityApp.getInstance();
+
+    @FXML
+    public void initialize() {
+        User user = app.getCurrentUser();
+        if (user != null) {
+            usuarioLabel.setText("Hola, " + user.getNickName());
+        }
+
+        zoom_slider.setMin(0.5);
+        zoom_slider.setMax(3.0);
+        zoom_slider.setValue(1.0);
+
+        map_pane.scaleXProperty().bind(zoom_slider.valueProperty());
+        map_pane.scaleYProperty().bind(zoom_slider.valueProperty());
+
+        setupListView();
+        refreshActivities();
+    }
+
+    private void setupListView() {
+        map_listview.setCellFactory(lv -> new ListCell<Activity>() {
+            private final HBox content = new HBox();
+            private final Label label = new Label();
+            private final Button deleteBtn = new Button("✕");
+            private final Region spacer = new Region();
+
+            {
+                content.setSpacing(10);
+                content.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+                deleteBtn.getStyleClass().add("button-danger");
+                deleteBtn.setStyle("-fx-padding: 2 6; -fx-font-size: 10;");
+                content.getChildren().addAll(label, spacer, deleteBtn);
+                
+                deleteBtn.setOnAction(e -> {
+                    Activity item = getItem();
+                    if (item != null) {
+                        handleDeleteActivity(item);
+                    }
+                });
+
+                content.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2) {
+                        Activity item = getItem();
+                        if (item != null) {
+                            setActivity(item);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Activity item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    label.setText(item.getName());
+                    setGraphic(content);
+                }
+            }
+        });
+    }
+
+    private void refreshActivities() {
+        List<Activity> activities = app.getUserActivities();
+        map_listview.setItems(FXCollections.observableArrayList(activities));
+    }
+
+    private void handleDeleteActivity(Activity activity) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estás seguro de que quieres borrar esta actividad?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Confirmar borrado");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                app.removeActivity(activity);
+                refreshActivities();
+                if (currentActivity != null && currentActivity.getId() == activity.getId()) {
+                    map_imageview.setImage(null);
+                    map_pane.getChildren().clear();
+                    altitudChart.getData().clear();
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void listClicked(javafx.scene.input.MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            Activity selected = map_listview.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                setActivity(selected);
+            }
+        }
+    }
+
+    public void setActivity(Activity activity) {
+        this.currentActivity = activity;
+        displayActivity();
+    }
+
+    private void displayActivity() {
+        if (currentActivity == null) return;
+
+        ritmoLabel.setText(currentActivity.getAveragePace() + " min/km");
+        velocidadLabel.setText(String.format("%.2f km/h", currentActivity.getAverageSpeed()));
+        altitudLabel.setText(String.format("%.0f m", currentActivity.getMaxElevation()));
+
+        MapRegion region = currentActivity.getSuggestedMap();
+        if (region != null) {
+            Image img = new Image(new File(region.getImagePath()).toURI().toString());
+            map_imageview.setImage(img);
+            map_pane.setPrefSize(img.getWidth(), img.getHeight());
+
+            MapProjection proj = new MapProjection(region, img.getWidth(), img.getHeight());
+            
+            map_pane.getChildren().removeIf(node -> node instanceof Polyline || node instanceof Circle);
+            
+            route = new Polyline();
+            route.setStroke(Color.BLUE);
+            route.setStrokeWidth(3);
+
+            List<TrackPoint> points = currentActivity.getTrackPoints();
+            for (TrackPoint tp : points) {
+                javafx.geometry.Point2D p = proj.project(tp);
+                route.getPoints().addAll(p.getX(), p.getY());
+            }
+            map_pane.getChildren().add(route);
+
+            if (!points.isEmpty()) {
+                TrackPoint start = points.get(0);
+                TrackPoint end = points.get(points.size() - 1);
+                javafx.geometry.Point2D pStart = proj.project(start);
+                javafx.geometry.Point2D pEnd = proj.project(end);
+                
+                Circle startCircle = new Circle(pStart.getX(), pStart.getY(), 5, Color.GREEN);
+                Circle endCircle = new Circle(pEnd.getX(), pEnd.getY(), 5, Color.RED);
+                map_pane.getChildren().addAll(startCircle, endCircle);
+
+                javafx.application.Platform.runLater(() -> {
+                    double h = pStart.getX() / map_pane.getWidth();
+                    double v = pStart.getY() / map_pane.getHeight();
+                    map_scrollpane.setHvalue(h);
+                    map_scrollpane.setVvalue(v);
+                });
+            }
+        }
+
+        altitudChart.getData().clear();
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("Altitud");
+
+        List<TrackPoint> points = currentActivity.getTrackPoints();
+        double distance = 0;
+        TrackPoint last = null;
+        
+        double minAlt = currentActivity.getMinElevation();
+        double maxAlt = currentActivity.getMaxElevation();
+        
+        for (TrackPoint tp : points) {
+            if (last != null) {
+                distance += tp.distanceTo(last);
+            }
+            series.getData().add(new XYChart.Data<>(distance / 1000.0, tp.getElevation()));
+            last = tp;
+        }
+        
+        altitudChart.getData().add(series);
+        
+        ejeDistancia.setLowerBound(0);
+        ejeDistancia.setUpperBound(distance / 1000.0);
+        ejeAltitud.setLowerBound(Math.max(0, minAlt - 50));
+        ejeAltitud.setUpperBound(maxAlt + 50);
+    }
+
+    @FXML
+    private void zoomIn() {
+        zoom_slider.setValue(zoom_slider.getValue() + 0.1);
+    }
+
+    @FXML
+    private void zoomOut() {
+        zoom_slider.setValue(zoom_slider.getValue() - 0.1);
+    }
+
+    @FXML
+    private void handleLogout() {
+        app.logout();
+        Navigation.loadScene("InicioSesionV2.fxml", "Running la Safor - Inicio de Sesión");
+    }
+    
+    @FXML
+    private void showPosition() {
+    }
+}

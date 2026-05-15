@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:controller="mapademo.DashboardController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- ===== BARRA SUPERIOR ===== -->
     <top>
@@ -42,7 +42,7 @@
                         </Hyperlink>
 
                         <!-- Cerrar sesión + ajustes -->
-                        <Button fx:id="cerrarSesionButton" mnemonicParsing="false" prefHeight="35.0" text="Cerrar sesión" />
+                        <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" text="Cerrar sesión" />
                         <Button fx:id="ajustesButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="45.0" text="⚙">
                             <font>
                                 <Font size="16.0" />
@@ -65,7 +65,7 @@
                 <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
                     <children>
                         <!-- Botón Añadir Actividad grande y visible -->
-                <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="60.0" styleClass="button-start" text="Añadir actividad" textAlignment="CENTER" wrapText="true">
+                <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleImportGPX" prefHeight="60.0" styleClass="button-start" text="Añadir actividad" textAlignment="CENTER" wrapText="true">
                     <VBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                     </VBox.margin>
@@ -94,47 +94,8 @@
                     </padding>
                 </Label>
 
-                <!-- Actividades individuales -->
-                <HBox alignment="CENTER_LEFT">
-                    <children>
-                        <Hyperlink fx:id="actividadLink1" text="Entrenamiento Gandía">
-                            <padding>
-                                <Insets bottom="4.0" left="10.0" right="0.0" top="4.0" />
-                            </padding>
-                        </Hyperlink>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="eliminarActividad1Button" styleClass="button-danger" text="X">
-                            <font>
-                                <Font name="System Bold" size="10.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets right="5.0" />
-                            </HBox.margin>
-                        </Button>
-                    </children>
-                </HBox>
-
-                <HBox alignment="CENTER_LEFT">
-                    <children>
-                        <Hyperlink fx:id="actividadLink2" text="Subida Mondúber">
-                            <padding>
-                                <Insets bottom="4.0" left="10.0" right="0.0" top="4.0" />
-                            </padding>
-                        </Hyperlink>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="eliminarActividad2Button" styleClass="button-danger" text="X">
-                            <font>
-                                <Font name="System Bold" size="10.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets right="5.0" />
-                            </HBox.margin>
-                        </Button>
-                    </children>
-                </HBox>
-
                 <!-- Lista dinámica de actividades -->
-                <ListView fx:id="actividadesListView" VBox.vgrow="ALWAYS" />
+                <ListView fx:id="actividadesListView" onMouseClicked="#handleListClick" VBox.vgrow="ALWAYS" />
                     </children>
                 </VBox>
                 <Separator orientation="VERTICAL" />

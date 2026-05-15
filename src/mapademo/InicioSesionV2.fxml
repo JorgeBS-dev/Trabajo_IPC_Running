@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:controller="mapademo.LoginController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Panel Decorativo (Lado Izquierdo) -->
       <VBox alignment="CENTER" spacing="20.0" styleClass="hero-pane" HBox.hgrow="ALWAYS">
@@ -46,6 +46,12 @@
                            <children>
                               <Label text="Email o Nickname:" />
                               <TextField fx:id="identificadorField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario o usuario@dominio.com" />
+                              <VBox fx:id="loginHelpBox" managed="false" spacing="2.0" visible="false" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;">
+                                 <children>
+                                    <Label text="• Usa tu nickname (6-15 caracteres)" style="-fx-font-size: 11px;" />
+                                    <Label text="• O tu email (formato válido)" style="-fx-font-size: 11px;" />
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
                         
@@ -66,12 +72,12 @@
                   <VBox spacing="10.0">
                      <children>
                         <Label fx:id="mensajeLabel" textFill="RED" wrapText="true" />
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" text="Iniciar sesión">
+                        <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="45.0" prefWidth="250.0" text="Iniciar sesión">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Hyperlink fx:id="registroHyperlink" text="¿No tienes cuenta? Regístrate" />
+                        <Hyperlink fx:id="registroHyperlink" onAction="#handleGoToRegister" text="¿No tienes cuenta? Regístrate" />
                      </children>
                   </VBox>
                </children>

@@ -20,12 +20,8 @@ public class MapaDemoApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logo.png")));
-        Scene scene = new Scene(root);
-        stage.setTitle("Demo mapas - IPC");
-        stage.setScene(scene);
-        stage.show();
+        Navigation.setStage(stage);
+        Navigation.loadScene("InicioSesionV2.fxml", "Running la Safor - Inicio de Sesión");
     }
 
     /**

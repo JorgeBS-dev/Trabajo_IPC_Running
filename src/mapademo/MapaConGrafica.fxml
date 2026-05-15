@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.MapaConGraficaController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.MapaConGraficaController">
 
     <!-- ===== BARRA SUPERIOR ===== -->
     <top>
@@ -84,10 +84,10 @@
     <!-- ===== CONTENIDO CENTRAL ===== -->
     <center>
         <!-- SplitPane principal: Sidebar a la izquierda, Contenido a la derecha -->
-        <SplitPane fx:id="splitPane" dividerPositions="0.25" stylesheets="@../resources/estilos.css">
+        <SplitPane fx:id="splitPane" dividerPositions="0.25" stylesheets="@../resources/estilos.css" VBox.vgrow="ALWAYS">
             <items>
                 <!-- ── SIDEBAR (Vertical Box de la izquierda) ── -->
-                <VBox prefWidth="180.0" spacing="0.0">
+                <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0">
                     <children>
                         <Separator />
                         <Label text="Lista de Actividades">
@@ -122,7 +122,7 @@
                 <VBox spacing="0.0">
                     <children>
                         <!-- Mapa -->
-                        <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                        <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                             <content>
                                 <Pane>
                                     <children>
@@ -161,7 +161,7 @@
                         </VBox>
 
                         <!-- Gráfica -->
-                        <LineChart fx:id="altitudChart" animated="false" prefHeight="220.0" title="Perfil de altitud" VBox.vgrow="NEVER">
+                        <LineChart fx:id="altitudChart" animated="false" title="Perfil de altitud" VBox.vgrow="ALWAYS">
                             <xAxis>
                                 <NumberAxis fx:id="ejeDistancia" autoRanging="false" label="Distancia (km)" lowerBound="0" tickUnit="0.5" upperBound="13" />
                             </xAxis>

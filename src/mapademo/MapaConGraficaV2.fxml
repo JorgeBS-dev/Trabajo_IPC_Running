@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@estilos.css"
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css"
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="mapademo.MapaConGraficaController">
@@ -69,7 +69,7 @@
     <left>
         <HBox BorderPane.alignment="TOP_LEFT">
             <children>
-                <VBox prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
+                <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
                     <children>
                         <!-- Botón principal -->
                         <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308"
@@ -142,7 +142,7 @@
 
     <!-- ===== CONTENIDO CENTRAL (Mapa + Panel Stats) ===== -->
     <center>
-        <SplitPane fx:id="splitPane" dividerPositions="0.65">
+        <SplitPane fx:id="splitPane" dividerPositions="0.65" VBox.vgrow="ALWAYS">
             <items>
 
                 <!-- Mapa con Zoom superpuesto -->
@@ -185,7 +185,7 @@
 
                 <!-- Panel derecho: Slider + Stats cards + Gráfica -->
                 <VBox spacing="12.0" styleClass="stats-panel"
-                      SplitPane.resizableWithParent="false">
+                      SplitPane.resizableWithParent="true">
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                     </padding>

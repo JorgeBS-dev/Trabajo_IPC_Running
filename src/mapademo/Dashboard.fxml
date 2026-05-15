@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="556.0" prefWidth="853.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- ===== BARRA SUPERIOR ===== -->
     <top>
@@ -62,7 +62,7 @@
     <left>
         <HBox BorderPane.alignment="TOP_LEFT">
             <children>
-                <VBox prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
+                <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
                     <children>
                         <!-- Botón Añadir Actividad grande y visible -->
                 <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="60.0" styleClass="button-start" text="Añadir actividad" textAlignment="CENTER" wrapText="true">
@@ -144,7 +144,7 @@
 
     <!-- ===== CONTENIDO PRINCIPAL (dashboard) ===== -->
     <center>
-        <VBox spacing="20.0" BorderPane.alignment="TOP_LEFT">
+        <VBox spacing="20.0" BorderPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
             <children>
 
                 <!-- Título -->
@@ -152,10 +152,10 @@
                 </Label>
 
                 <!-- Grid de estadísticas 2x2 -->
-                <GridPane hgap="0.0" vgap="0.0">
+                <GridPane hgap="0.0" maxWidth="1.7976931348623157E308" vgap="0.0">
 
                     <!-- Fila 0: Distancia | Tiempo -->
-                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
                         <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
@@ -175,7 +175,7 @@
 
                     <Separator orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3" />
 
-                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
                         <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
@@ -197,7 +197,7 @@
                     <Separator GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" />
 
                     <!-- Fila 2: Ascenso | Descenso -->
-                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS">
                         <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
@@ -216,7 +216,7 @@
                         </padding>
                     </VBox>
 
-                    <VBox alignment="TOP_LEFT" prefHeight="120.0" prefWidth="300.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS">
                         <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                                 <children>
@@ -235,14 +235,14 @@
                         </padding>
                     </VBox>
                <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints minWidth="1.0" prefWidth="1.0" />
+                  <ColumnConstraints hgrow="ALWAYS" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
+                  <RowConstraints vgrow="ALWAYS" />
+                  <RowConstraints minHeight="1.0" prefHeight="1.0" />
+                  <RowConstraints vgrow="ALWAYS" />
                </rowConstraints>
 
                 </GridPane>

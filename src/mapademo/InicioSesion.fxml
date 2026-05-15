@@ -8,11 +8,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" prefHeight="556.0" prefWidth="853.0" spacing="30.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+      spacing="30.0" stylesheets="@estilos.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <Region VBox.vgrow="ALWAYS" />
+
       <Label text="Inicio de Sesión">
          <font>
             <Font name="System Bold" size="28.0" />
@@ -24,7 +29,7 @@
             <VBox spacing="5.0">
                <children>
                   <Label text="Email o Nickname:" />
-                  <TextField fx:id="identificadorField" prefHeight="35.0" promptText="usuario o usuario@dominio.com" />
+                  <TextField fx:id="identificadorField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario o usuario@dominio.com" />
                </children>
             </VBox>
             
@@ -33,7 +38,7 @@
                   <Label text="Contraseña:" />
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
-                        <PasswordField fx:id="passwordField" maxWidth="320.0" prefHeight="35.0" promptText="Ingresa tu contraseña" HBox.hgrow="ALWAYS" />
+                        <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Ingresa tu contraseña" HBox.hgrow="ALWAYS" />
                         <ToggleButton fx:id="togglePasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
                      </children>
                   </HBox>
@@ -53,6 +58,8 @@
             <Hyperlink fx:id="registroHyperlink" text="¿No tienes cuenta? Regístrate" />
          </children>
       </VBox>
+
+      <Region VBox.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />

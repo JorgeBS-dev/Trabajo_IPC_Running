@@ -8,12 +8,15 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" prefHeight="556.0" prefWidth="853.0" spacing="30.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+      spacing="30.0" stylesheets="@estilos.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Título -->
       <Label text="Ajustes de Perfil">
@@ -47,32 +50,32 @@
       </HBox>
 
       <!-- Campos Nickname y Email en fila -->
-      <HBox maxWidth="700.0" spacing="20.0">
+      <HBox maxWidth="1.7976931348623157E308" spacing="20.0">
          <children>
             <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Nickname:" />
-                  <TextField fx:id="nicknameField" prefHeight="35.0" promptText="jgarcia" />
+                  <TextField fx:id="nicknameField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="jgarcia" />
                </children>
             </VBox>
             <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Email:" />
-                  <TextField fx:id="emailField" prefHeight="35.0" promptText="usuario@dominio.com" />
+                  <TextField fx:id="emailField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario@dominio.com" />
                </children>
             </VBox>
          </children>
       </HBox>
 
       <!-- Campos Contraseña y Confirmar Contraseña -->
-      <HBox maxWidth="700.0" spacing="20.0">
+      <HBox maxWidth="1.7976931348623157E308" spacing="20.0">
          <children>
             <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Contraseña:" />
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
-                        <PasswordField fx:id="passwordField" prefHeight="35.0" promptText="Nueva contraseña" HBox.hgrow="ALWAYS" />
+                        <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Nueva contraseña" HBox.hgrow="ALWAYS" />
                         <ToggleButton fx:id="togglePasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
                      </children>
                   </HBox>
@@ -83,7 +86,7 @@
                   <Label text="Confirmar Contraseña:" />
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
-                        <PasswordField fx:id="confirmPasswordField" prefHeight="35.0" promptText="Confirma contraseña" HBox.hgrow="ALWAYS" />
+                        <PasswordField fx:id="confirmPasswordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Confirma contraseña" HBox.hgrow="ALWAYS" />
                         <ToggleButton fx:id="toggleConfirmPasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
                      </children>
                   </HBox>
@@ -91,6 +94,9 @@
             </VBox>
          </children>
       </HBox>
+
+      <!-- Espaciador para empujar botones hacia abajo si hay espacio -->
+      <Region VBox.vgrow="ALWAYS" />
 
       <!-- Mensaje de error/éxito y botones -->
       <VBox alignment="CENTER_LEFT" spacing="12.0">
@@ -119,4 +125,3 @@
       <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
    </padding>
 </VBox>
-

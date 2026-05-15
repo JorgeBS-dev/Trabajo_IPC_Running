@@ -12,54 +12,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-      spacing="30.0" stylesheets="@estilos.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="30.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Region VBox.vgrow="ALWAYS" />
-
-      <Label text="Inicio de Sesión">
-         <font>
-            <Font name="System Bold" size="28.0" />
-         </font>
-      </Label>
-      
-      <VBox maxWidth="400.0" spacing="20.0">
+      <VBox alignment="CENTER_LEFT" maxWidth="400.0" spacing="30.0">
          <children>
-            <VBox spacing="5.0">
+            <Label text="Inicio de Sesión">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            
+            <VBox spacing="20.0">
                <children>
-                  <Label text="Email o Nickname:" />
-                  <TextField fx:id="identificadorField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario o usuario@dominio.com" />
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Email o Nickname:" />
+                        <TextField fx:id="identificadorField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="usuario o usuario@dominio.com" />
+                     </children>
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Contraseña:" />
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Ingresa tu contraseña" HBox.hgrow="ALWAYS" />
+                              <ToggleButton fx:id="togglePasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             
-            <VBox spacing="5.0">
+            <VBox spacing="10.0">
                <children>
-                  <Label text="Contraseña:" />
-                  <HBox alignment="CENTER_LEFT" spacing="5.0">
-                     <children>
-                        <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="Ingresa tu contraseña" HBox.hgrow="ALWAYS" />
-                        <ToggleButton fx:id="togglePasswordButton" mnemonicParsing="false" prefHeight="35.0" text="👁" />
-                     </children>
-                  </HBox>
+                  <Label fx:id="mensajeLabel" textFill="RED" wrapText="true" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" text="Iniciar sesión">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Hyperlink fx:id="registroHyperlink" text="¿No tienes cuenta? Regístrate" />
                </children>
             </VBox>
          </children>
       </VBox>
-      
-      <VBox alignment="CENTER_LEFT" spacing="10.0">
-         <children>
-            <Label fx:id="mensajeLabel" textFill="RED" wrapText="true" />
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" text="Iniciar sesión">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Hyperlink fx:id="registroHyperlink" text="¿No tienes cuenta? Regístrate" />
-         </children>
-      </VBox>
-
-      <Region VBox.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />

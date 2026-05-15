@@ -11,6 +11,7 @@ public class Navigation {
 
     public static void setStage(Stage stage) {
         Navigation.stage = stage;
+        Navigation.stage.setMaximized(true);
     }
 
     public static Stage getStage() {

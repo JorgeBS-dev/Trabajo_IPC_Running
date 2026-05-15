@@ -59,13 +59,11 @@ public class DashboardController {
                     }
                 });
 
-                // Add direct listener to content to ensure double click works on the graphic
+                // Add direct listener to content to ensure click works on the graphic
                 content.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2) {
-                        Activity item = getItem();
-                        if (item != null) {
-                            goToActivity(item);
-                        }
+                    Activity item = getItem();
+                    if (item != null) {
+                        goToActivity(item);
                     }
                 });
             }
@@ -85,11 +83,9 @@ public class DashboardController {
 
     @FXML
     private void handleListClick(javafx.scene.input.MouseEvent event) {
-        if (event.getClickCount() == 2) {
-            Activity selected = actividadesListView.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                goToActivity(selected);
-            }
+        Activity selected = actividadesListView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            goToActivity(selected);
         }
     }
 
@@ -159,9 +155,25 @@ public class DashboardController {
     }
 
     @FXML
+    private void handleVolver() {
+        refreshActivities();
+        calculateTotals();
+    }
+
+    @FXML
     private void handleLogout() {
         app.logout();
         Navigation.loadScene("InicioSesionV2.fxml", "Running la Safor - Inicio de Sesión");
+    }
+
+    @FXML
+    private void handleGoToProfile() {
+        Navigation.loadScene("AjustesPerfil.fxml", "Running la Safor - Ajustes de Perfil");
+    }
+
+    @FXML
+    private void handleGoToMapManagement() {
+        Navigation.loadScene("GestionMapas.fxml", "Running la Safor - Gestión de Mapas");
     }
 
     private void goToActivity(Activity activity) {

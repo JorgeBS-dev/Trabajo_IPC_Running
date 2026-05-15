@@ -82,11 +82,9 @@ public class MapaConGraficaController {
                 });
 
                 content.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2) {
-                        Activity item = getItem();
-                        if (item != null) {
-                            setActivity(item);
-                        }
+                    Activity item = getItem();
+                    if (item != null) {
+                        setActivity(item);
                     }
                 });
             }
@@ -126,12 +124,15 @@ public class MapaConGraficaController {
     }
 
     @FXML
+    private void handleVolver() {
+        Navigation.loadScene("Dashboard.fxml", "Running la Safor - Dashboard");
+    }
+
+    @FXML
     private void listClicked(javafx.scene.input.MouseEvent event) {
-        if (event.getClickCount() == 2) {
-            Activity selected = map_listview.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                setActivity(selected);
-            }
+        Activity selected = map_listview.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            setActivity(selected);
         }
     }
 
@@ -230,6 +231,16 @@ public class MapaConGraficaController {
         Navigation.loadScene("InicioSesionV2.fxml", "Running la Safor - Inicio de Sesión");
     }
     
+    @FXML
+    private void handleGoToProfile() {
+        Navigation.loadScene("AjustesPerfil.fxml", "Running la Safor - Ajustes de Perfil");
+    }
+
+    @FXML
+    private void handleGoToMapManagement() {
+        Navigation.loadScene("GestionMapas.fxml", "Running la Safor - Gestión de Mapas");
+    }
+
     @FXML
     private void showPosition() {
     }

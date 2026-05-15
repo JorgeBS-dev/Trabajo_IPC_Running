@@ -41,10 +41,10 @@
 
                         <Region HBox.hgrow="ALWAYS" />
 
-                        <Hyperlink fx:id="gestionMapasLink" text="Gestión de Mapas" underline="true">
+                        <Hyperlink fx:id="gestionMapasLink" onAction="#handleGoToMapManagement" text="Gestión de Mapas" underline="true">
                             <font><Font size="14.0" /></font>
                         </Hyperlink>
-                        <Hyperlink fx:id="miPerfilLink" text="Editar Perfil" underline="true">
+                        <Hyperlink fx:id="miPerfilLink" onAction="#handleGoToProfile" text="Editar Perfil" underline="true">
                             <font><Font size="14.0" /></font>
                         </Hyperlink>
 
@@ -83,12 +83,14 @@
 
                         <Separator />
 
-                        <Label fx:id="resumenGeneralLabel" text="🏠  Resumen General">
-                            <font><Font name="System Bold" size="16.0" /></font>
+                        <Button fx:id="btnResumenGeneral" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#handleVolver"
+                                styleClass="button-secondary" text="🏠  Resumen General"
+                                style="-fx-alignment: CENTER_LEFT; -fx-border-color: transparent; -fx-font-weight: bold; -fx-font-size: 14px;">
                             <padding>
-                                <Insets bottom="8.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                             </padding>
-                        </Label>
+                        </Button>
 
                         <Separator />
 
@@ -97,6 +99,7 @@
                             <padding>
                                 <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
+                        </Label>
                         <ListView fx:id="map_listview" onMouseClicked="#listClicked"
                                   VBox.vgrow="ALWAYS" />
                     </children>

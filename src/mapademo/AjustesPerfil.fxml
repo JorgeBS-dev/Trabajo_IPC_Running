@@ -14,16 +14,20 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="30.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="mapademo.AjustesPerfilController" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="30.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER_LEFT" maxWidth="700.0" spacing="30.0">
          <children>
-            <!-- Título -->
-            <Label text="Ajustes de Perfil">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleVolver" text="⬅ Volver" styleClass="button-secondary" />
+                  <Label text="Ajustes de Perfil">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
       
             <!-- Foto de perfil -->
             <HBox alignment="CENTER_LEFT" spacing="20.0">

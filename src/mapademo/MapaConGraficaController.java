@@ -36,8 +36,7 @@ public class MapaConGraficaController {
     @FXML private ListView<Activity> map_listview;
     @FXML private Label usuarioLabel;
     @FXML private Label avatarLabel;
-    @FXML private Slider progresoSlider;
-    @FXML private Label posicionSliderLabel;
+    @FXML private Label distanciaLabel;
 
     private Activity currentActivity;
     private Polyline route;
@@ -54,8 +53,21 @@ public class MapaConGraficaController {
         zoom_slider.setMax(3.0);
         zoom_slider.setValue(1.0);
 
-        map_pane.scaleXProperty().bind(zoom_slider.valueProperty());
-        map_pane.scaleYProperty().bind(zoom_slider.valueProperty());
+        // Listener para que el zoom se mantenga centrado en la vista actual
+        zoom_slider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            double h = map_scrollpane.getHvalue();
+            double v = map_scrollpane.getVvalue();
+            
+            map_pane.setScaleX(newVal.doubleValue());
+            map_pane.setScaleY(newVal.doubleValue());
+            
+            // Re-aplicamos el scroll relativo para que el zoom parezca centrado
+            // Usamos Platform.runLater para asegurar que el scrollpane ha actualizado sus límites
+            javafx.application.Platform.runLater(() -> {
+                map_scrollpane.setHvalue(h);
+                map_scrollpane.setVvalue(v);
+            });
+        });
 
         setupListView();
         refreshActivities();
@@ -146,7 +158,8 @@ public class MapaConGraficaController {
     private void displayActivity() {
         if (currentActivity == null) return;
 
-        ritmoLabel.setText(currentActivity.getAveragePace() + " min/km");
+        distanciaLabel.setText(String.format("%.2f km", currentActivity.getTotalDistance() / 1000.0));
+        ritmoLabel.setText(String.format("%.2f min/km", currentActivity.getAveragePace()));
         velocidadLabel.setText(String.format("%.2f km/h", currentActivity.getAverageSpeed()));
         altitudLabel.setText(String.format("%.0f m", currentActivity.getMaxElevation()));
 

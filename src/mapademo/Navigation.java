@@ -19,20 +19,32 @@ public class Navigation {
     }
 
     public static void showParent(Parent root, String title) {
-        Scene scene = new Scene(root);
+        if (stage.getScene() == null) {
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } else {
+            stage.getScene().setRoot(root);
+        }
         stage.setTitle(title);
-        stage.setScene(scene);
         stage.show();
+        stage.setMaximized(true);
+        javafx.application.Platform.runLater(() -> stage.setMaximized(true));
     }
 
     public static void loadScene(String fxmlFile, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(Navigation.class.getResource(fxmlFile));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            if (stage.getScene() == null) {
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+            } else {
+                stage.getScene().setRoot(root);
+            }
             stage.setTitle(title);
-            stage.setScene(scene);
             stage.show();
+            stage.setMaximized(true);
+            javafx.application.Platform.runLater(() -> stage.setMaximized(true));
         } catch (IOException e) {
             e.printStackTrace();
         }

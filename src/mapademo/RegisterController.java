@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -14,16 +15,19 @@ import java.time.LocalDate;
 
 public class RegisterController {
 
+    @FXML private HBox rootPane;
     @FXML private TextField nicknameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
+    @FXML private TextField passwordTextField;
+    @FXML private TextField confirmPasswordTextField;
+    @FXML private ToggleButton togglePasswordButton;
+    @FXML private ToggleButton toggleConfirmPasswordButton;
     @FXML private DatePicker birthDatePicker;
     @FXML private Label mensajeLabel;
     @FXML private ImageView avatarImageView;
-    @FXML private Label nickStatus;
     @FXML private Label emailStatus;
-    @FXML private Label passStatus;
 
     @FXML private VBox nickRequirementsBox;
     @FXML private Label nickLenLabel;
@@ -41,6 +45,9 @@ public class RegisterController {
 
     @FXML
     public void initialize() {
+        // Evitar que el primer campo tome el foco automáticamente
+        javafx.application.Platform.runLater(() -> rootPane.requestFocus());
+
         // Nickname focus and validation
         nicknameField.focusedProperty().addListener((obs, oldV, newV) -> {
             nickRequirementsBox.setVisible(newV);
@@ -71,6 +78,43 @@ public class RegisterController {
         passwordField.textProperty().addListener((obs, oldV, newV) -> {
             validatePassword(newV);
         });
+
+        // Sincronizar PasswordField y TextField
+        passwordTextField.textProperty().bindBidirectional(passwordField.textProperty());
+        confirmPasswordTextField.textProperty().bindBidirectional(confirmPasswordField.textProperty());
+
+        // Lógica de mostrar/ocultar contraseña
+        togglePasswordButton.selectedProperty().addListener((obs, oldV, selected) -> {
+            if (selected) {
+                passwordField.setVisible(false);
+                passwordField.setManaged(false);
+                passwordTextField.setVisible(true);
+                passwordTextField.setManaged(true);
+                togglePasswordButton.setText("🙈");
+            } else {
+                passwordField.setVisible(true);
+                passwordField.setManaged(true);
+                passwordTextField.setVisible(false);
+                passwordTextField.setManaged(false);
+                togglePasswordButton.setText("👁");
+            }
+        });
+
+        toggleConfirmPasswordButton.selectedProperty().addListener((obs, oldV, selected) -> {
+            if (selected) {
+                confirmPasswordField.setVisible(false);
+                confirmPasswordField.setManaged(false);
+                confirmPasswordTextField.setVisible(true);
+                confirmPasswordTextField.setManaged(true);
+                toggleConfirmPasswordButton.setText("🙈");
+            } else {
+                confirmPasswordField.setVisible(true);
+                confirmPasswordField.setManaged(true);
+                confirmPasswordTextField.setVisible(false);
+                confirmPasswordTextField.setManaged(false);
+                toggleConfirmPasswordButton.setText("👁");
+            }
+        });
     }
 
     private void validateNickname(String nick) {
@@ -79,14 +123,6 @@ public class RegisterController {
 
         updateLabel(nickLenLabel, lenOk, "• 6-15 caracteres");
         updateLabel(nickCharLabel, charOk, "• Letras, números, - o _");
-
-        if (User.checkNickName(nick)) {
-            nickStatus.setText("✅");
-            nickStatus.setTextFill(Color.GREEN);
-        } else {
-            nickStatus.setText("❌");
-            nickStatus.setTextFill(Color.RED);
-        }
     }
 
     private void validatePassword(String pass) {
@@ -101,14 +137,6 @@ public class RegisterController {
         updateLabel(passLowerLabel, lowerOk, "• Una minúscula");
         updateLabel(passDigitLabel, digitOk, "• Un dígito");
         updateLabel(passSymbolLabel, symbolOk, "• Un símbolo (!@#$%&*()-+=)");
-
-        if (User.checkPassword(pass)) {
-            passStatus.setText("✅");
-            passStatus.setTextFill(Color.GREEN);
-        } else {
-            passStatus.setText("❌");
-            passStatus.setTextFill(Color.RED);
-        }
     }
 
     private void updateLabel(Label label, boolean ok, String baseText) {

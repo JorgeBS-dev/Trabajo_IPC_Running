@@ -8,7 +8,7 @@ import upv.ipc.sportlib.SportActivityApp;
 
 public class LoginController {
 
-    @FXML private HBox rootPane;
+    @FXML private VBox rootPane;
     @FXML private TextField identificadorField;
     @FXML private PasswordField passwordField;
     @FXML private TextField passwordTextField;

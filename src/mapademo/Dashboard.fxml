@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,204 +17,209 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="mapademo.DashboardController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
-
-    <!-- ===== BARRA SUPERIOR ===== -->
-    <top>
-        <VBox BorderPane.alignment="CENTER">
-            <children>
-                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="top-bar">
-                    <children>
-                        <!-- Avatar + nombre usuario -->
-                        <Label fx:id="avatarLabel" text="👤" />
-                        <Label fx:id="usuarioLabel" text="Hola, jpgarcia" />
-
-                        <Region HBox.hgrow="ALWAYS" />
-
-                        <!-- Enlaces de texto subrayado -->
-                        <Hyperlink fx:id="gestionMapasLink" onAction="#handleGoToMapManagement" text="Gestión de Mapas" underline="true">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Hyperlink>
-                        <Hyperlink fx:id="miPerfilLink" onAction="#handleGoToProfile" text="Editar Perfil" underline="true">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Hyperlink>
-
-                        <!-- Cerrar sesión + ajustes -->
-                        <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" text="Cerrar sesión" />
-                        <Button fx:id="ajustesButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="45.0" text="⚙">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Button>
-                    </children>
-                    <padding>
-                        <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
-                    </padding>
-                </HBox>
-                <Separator />
-            </children>
-        </VBox>
-    </top>
-
-    <!-- ===== PANEL IZQUIERDO (menú lateral) ===== -->
-    <left>
-        <HBox BorderPane.alignment="TOP_LEFT">
-            <children>
-                <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
-                    <children>
-                        <!-- Botón Añadir Actividad grande y visible -->
-                <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleImportGPX" prefHeight="60.0" styleClass="button-start" text="Añadir actividad" textAlignment="CENTER" wrapText="true">
-                    <VBox.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                    </VBox.margin>
-                </Button>
-                <Separator />
-
-                <!-- Entrada "Resumen General" seleccionada -->
-                <Button fx:id="btnResumenGeneral" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#handleVolver"
-                        styleClass="button-secondary" text="🏠  Resumen General"
-                        style="-fx-alignment: CENTER_LEFT; -fx-border-color: transparent; -fx-font-weight: bold; -fx-font-size: 14px;">
-                    <padding>
-                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-                    </padding>
-                </Button>
-
-                <Separator />
-
-                <!-- Cabecera lista -->
-                <Label text="Lista de Actividades">
-                    <font>
-                        <Font name="System Bold" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </Label>
-
-                <!-- Lista dinámica de actividades -->
-                <ListView fx:id="actividadesListView" onMouseClicked="#handleListClick" VBox.vgrow="ALWAYS" />
-                    </children>
-                </VBox>
-                <Separator orientation="VERTICAL" />
-            </children>
-        </HBox>
-    </left>
-
-    <!-- ===== CONTENIDO PRINCIPAL (dashboard) ===== -->
-    <center>
-        <VBox spacing="20.0" BorderPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
-            <children>
-
-                <!-- Título -->
-                <Label fx:id="tituloDashboardLabel" styleClass="label-title" text="Resumen General de Mayo 2026">
-                </Label>
-
-                <!-- Grid de estadísticas 2x2 -->
-                <GridPane hgap="0.0" maxWidth="1.7976931348623157E308" vgap="0.0">
-
-                    <!-- Fila 0: Distancia | Tiempo -->
-                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                <children>
-                                    <Label styleClass="label-secondary" text="Distancia:" />
-                                    <Label text="👟">
-                              <font>
-                                 <Font size="24.0" />
-                              </font></Label>
-                                </children>
-                            </HBox>
-                            <Label fx:id="distanciaLabel" styleClass="label-metric" text="85,4 Km" />
-                        </children>
-                        <padding>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                        </padding>
-                    </VBox>
-
-                    <Separator orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3" />
-
-                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                <children>
-                                    <Label styleClass="label-secondary" text="Tiempo:" />
-                                    <Label text="⏱">
-                              <font>
-                                 <Font size="24.0" />
-                              </font></Label>
-                                </children>
-                            </HBox>
-                            <Label fx:id="tiempoLabel" styleClass="label-metric" text="10 h 25 min" />
-                        </children>
-                        <padding>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                        </padding>
-                    </VBox>
-
-                    <!-- Separador horizontal -->
-                    <Separator GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-
-                    <!-- Fila 2: Ascenso | Descenso -->
-                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS">
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                <children>
-                                    <Label styleClass="label-secondary" text="Ascenso:" />
-                                    <Label text="⬆">
-                              <font>
-                                 <Font size="24.0" />
-                              </font></Label>
-                                </children>
-                            </HBox>
-                            <Label fx:id="ascensoLabel" styleClass="label-metric" text="+1.250 m" />
-                            <Label fx:id="desnivPositivoLabel" styleClass="label-secondary" text="Desnivel Positivo" />
-                        </children>
-                        <padding>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                        </padding>
-                    </VBox>
-
-                    <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS">
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                <children>
-                                    <Label styleClass="label-secondary" text="Descenso:" />
-                                    <Label text="⬇">
-                              <font>
-                                 <Font size="24.0" />
-                              </font></Label>
-                                </children>
-                            </HBox>
-                            <Label fx:id="descensoLabel" styleClass="label-metric" text="-1.180 m" />
-                            <Label fx:id="desnivNegativoLabel" styleClass="label-secondary" text="Desnivel Negativo" />
-                        </children>
-                        <padding>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                        </padding>
-                    </VBox>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="ALWAYS" />
-                  <ColumnConstraints minWidth="1.0" prefWidth="1.0" />
-                  <ColumnConstraints hgrow="ALWAYS" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints vgrow="ALWAYS" />
-                  <RowConstraints minHeight="1.0" prefHeight="1.0" />
-                  <RowConstraints vgrow="ALWAYS" />
-               </rowConstraints>
-
-                </GridPane>
-
-            </children>
-            <padding>
-                <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
-            </padding>
-        </VBox>
-    </center>
-
-</BorderPane>
+<VBox stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.DashboardController">
+   <children>
+      <fx:include source="TopBar.fxml" />
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      
+          <!-- ===== BARRA SUPERIOR ===== -->
+          <top>
+              <VBox BorderPane.alignment="CENTER">
+                  <children>
+                      <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="top-bar">
+                          <children>
+                              <!-- Avatar + nombre usuario -->
+                              <Label fx:id="avatarLabel" text="👤" />
+                              <Label fx:id="usuarioLabel" text="Hola, jpgarcia" />
+      
+                              <Region HBox.hgrow="ALWAYS" />
+      
+                              <!-- Enlaces de texto subrayado -->
+                              <Hyperlink fx:id="gestionMapasLink" onAction="#handleGoToMapManagement" text="Gestión de Mapas" underline="true">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="miPerfilLink" onAction="#handleGoToProfile" text="Editar Perfil" underline="true">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Hyperlink>
+      
+                              <!-- Cerrar sesión + ajustes -->
+                              <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" text="Cerrar sesión" />
+                              <Button fx:id="ajustesButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="45.0" text="⚙">
+                                  <font>
+                                      <Font size="16.0" />
+                                  </font>
+                              </Button>
+                          </children>
+                          <padding>
+                              <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+                          </padding>
+                      </HBox>
+                      <Separator />
+                  </children>
+              </VBox>
+          </top>
+      
+          <!-- ===== PANEL IZQUIERDO (menú lateral) ===== -->
+          <left>
+              <HBox BorderPane.alignment="TOP_LEFT">
+                  <children>
+                      <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
+                          <children>
+                              <!-- Botón Añadir Actividad grande y visible -->
+                      <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleImportGPX" prefHeight="60.0" styleClass="button-start" text="Añadir actividad" textAlignment="CENTER" wrapText="true">
+                          <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                          </VBox.margin>
+                      </Button>
+                      <Separator />
+      
+                      <!-- Entrada "Resumen General" seleccionada -->
+                      <Button fx:id="btnResumenGeneral" maxWidth="1.7976931348623157E308"
+                              mnemonicParsing="false" onAction="#handleVolver"
+                              styleClass="button-secondary" text="🏠  Resumen General"
+                              style="-fx-alignment: CENTER_LEFT; -fx-border-color: transparent; -fx-font-weight: bold; -fx-font-size: 14px;">
+                          <padding>
+                              <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                          </padding>
+                      </Button>
+      
+                      <Separator />
+      
+                      <!-- Cabecera lista -->
+                      <Label text="Lista de Actividades">
+                          <font>
+                              <Font name="System Bold" size="13.0" />
+                          </font>
+                          <padding>
+                              <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+                          </padding>
+                      </Label>
+      
+                      <!-- Lista dinámica de actividades -->
+                      <ListView fx:id="actividadesListView" onMouseClicked="#handleListClick" VBox.vgrow="ALWAYS" />
+                          </children>
+                      </VBox>
+                      <Separator orientation="VERTICAL" />
+                  </children>
+              </HBox>
+          </left>
+      
+          <!-- ===== CONTENIDO PRINCIPAL (dashboard) ===== -->
+          <center>
+              <VBox spacing="20.0" BorderPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
+                  <children>
+      
+                      <!-- Título -->
+                      <Label fx:id="tituloDashboardLabel" styleClass="label-title" text="Resumen General de Mayo 2026">
+                      </Label>
+      
+                      <!-- Grid de estadísticas 2x2 -->
+                      <GridPane hgap="0.0" maxWidth="1.7976931348623157E308" vgap="0.0">
+      
+                          <!-- Fila 0: Distancia | Tiempo -->
+                          <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
+                              <children>
+                                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                      <children>
+                                          <Label styleClass="label-secondary" text="Distancia:" />
+                                          <Label text="👟">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font></Label>
+                                      </children>
+                                  </HBox>
+                                  <Label fx:id="distanciaLabel" styleClass="label-metric" text="85,4 Km" />
+                              </children>
+                              <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                              </padding>
+                          </VBox>
+      
+                          <Separator orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3" />
+      
+                          <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
+                              <children>
+                                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                      <children>
+                                          <Label styleClass="label-secondary" text="Tiempo:" />
+                                          <Label text="⏱">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font></Label>
+                                      </children>
+                                  </HBox>
+                                  <Label fx:id="tiempoLabel" styleClass="label-metric" text="10 h 25 min" />
+                              </children>
+                              <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                              </padding>
+                          </VBox>
+      
+                          <!-- Separador horizontal -->
+                          <Separator GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+      
+                          <!-- Fila 2: Ascenso | Descenso -->
+                          <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS">
+                              <children>
+                                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                      <children>
+                                          <Label styleClass="label-secondary" text="Ascenso:" />
+                                          <Label text="⬆">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font></Label>
+                                      </children>
+                                  </HBox>
+                                  <Label fx:id="ascensoLabel" styleClass="label-metric" text="+1.250 m" />
+                                  <Label fx:id="desnivPositivoLabel" styleClass="label-secondary" text="Desnivel Positivo" />
+                              </children>
+                              <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                              </padding>
+                          </VBox>
+      
+                          <VBox alignment="TOP_LEFT" minHeight="120.0" spacing="8.0" styleClass="card" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS">
+                              <children>
+                                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                      <children>
+                                          <Label styleClass="label-secondary" text="Descenso:" />
+                                          <Label text="⬇">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font></Label>
+                                      </children>
+                                  </HBox>
+                                  <Label fx:id="descensoLabel" styleClass="label-metric" text="-1.180 m" />
+                                  <Label fx:id="desnivNegativoLabel" styleClass="label-secondary" text="Desnivel Negativo" />
+                              </children>
+                              <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                              </padding>
+                          </VBox>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints minWidth="1.0" prefWidth="1.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" />
+                        <RowConstraints minHeight="1.0" prefHeight="1.0" />
+                        <RowConstraints vgrow="ALWAYS" />
+                     </rowConstraints>
+      
+                      </GridPane>
+      
+                  </children>
+                  <padding>
+                      <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+                  </padding>
+              </VBox>
+          </center>
+      
+      </BorderPane>
+   </children>
+</VBox>

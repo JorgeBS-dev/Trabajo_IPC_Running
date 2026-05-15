@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -20,6 +21,7 @@ public class MapaDemoApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        stage.initStyle(StageStyle.UNDECORATED);
         Navigation.setStage(stage);
         Navigation.loadScene("InicioSesionV2.fxml", "Running la Safor - Inicio de Sesión");
     }

@@ -10,9 +10,10 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="mapademo.GestionMapasController" alignment="CENTER" spacing="25.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="mapademo.GestionMapasController" alignment="TOP_CENTER" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox maxWidth="800.0" spacing="25.0" VBox.vgrow="ALWAYS">
+      <fx:include source="TopBar.fxml" />
+      <VBox maxWidth="1.7976931348623157E308" spacing="25.0" VBox.vgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
@@ -63,9 +64,9 @@
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-   </padding>
 </VBox>

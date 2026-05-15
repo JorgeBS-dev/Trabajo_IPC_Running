@@ -3,6 +3,9 @@ package mapademo;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -11,7 +14,20 @@ public class Navigation {
 
     public static void setStage(Stage stage) {
         Navigation.stage = stage;
-        Navigation.stage.setMaximized(true);
+        
+        // Ajustar al tamaño de la pantalla respetando la barra de tareas
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX(visualBounds.getMinX());
+        stage.setY(visualBounds.getMinY());
+        stage.setWidth(visualBounds.getWidth());
+        stage.setHeight(visualBounds.getHeight());
+        
+        // Set app icon
+        try {
+            Navigation.stage.getIcons().add(new Image(Navigation.class.getResourceAsStream("iconoapp2.png")));
+        } catch (Exception e) {
+            System.err.println("Could not load icon: " + e.getMessage());
+        }
     }
 
     public static Stage getStage() {
@@ -27,8 +43,11 @@ public class Navigation {
         }
         stage.setTitle(title);
         stage.show();
-        stage.setMaximized(true);
-        javafx.application.Platform.runLater(() -> stage.setMaximized(true));
+        
+        // Reforzar el tamaño en cada cambio de escena
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        stage.setWidth(visualBounds.getWidth());
+        stage.setHeight(visualBounds.getHeight());
     }
 
     public static void loadScene(String fxmlFile, String title) {
@@ -43,8 +62,11 @@ public class Navigation {
             }
             stage.setTitle(title);
             stage.show();
-            stage.setMaximized(true);
-            javafx.application.Platform.runLater(() -> stage.setMaximized(true));
+            
+            // Reforzar el tamaño en cada cambio de escena
+            Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+            stage.setWidth(visualBounds.getWidth());
+            stage.setHeight(visualBounds.getHeight());
         } catch (IOException e) {
             e.printStackTrace();
         }

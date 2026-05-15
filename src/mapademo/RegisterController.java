@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 public class RegisterController {
 
-    @FXML private HBox rootPane;
+    @FXML private VBox rootPane;
     @FXML private TextField nicknameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;

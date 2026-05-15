@@ -7,10 +7,6 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
@@ -24,236 +20,239 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.Group?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@estilos.css"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="mapademo.MapaConGraficaController">
-
-    <!-- ===== BARRA SUPERIOR (igual que Dashboard) ===== -->
-    <top>
-        <VBox BorderPane.alignment="CENTER">
-            <children>
-                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="top-bar">
-                    <children>
-                        <Label fx:id="avatarLabel" text="👤" />
-                        <Label fx:id="usuarioLabel" text="Hola, jpgarcia" />
-
-                        <Region HBox.hgrow="ALWAYS" />
-
-                        <Hyperlink fx:id="gestionMapasLink" onAction="#handleGoToMapManagement" text="Gestión de Mapas" underline="true">
-                            <font><Font size="14.0" /></font>
-                        </Hyperlink>
-                        <Hyperlink fx:id="miPerfilLink" onAction="#handleGoToProfile" text="Editar Perfil" underline="true">
-                            <font><Font size="14.0" /></font>
-                        </Hyperlink>
-
-                        <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" text="Cerrar sesión" />
-                        <Button fx:id="ajustesButton" mnemonicParsing="false"
-                                prefHeight="35.0" prefWidth="45.0" text="⚙">
-                            <font><Font size="16.0" /></font>
-                        </Button>
-                    </children>
-                    <padding>
-                        <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
-                    </padding>
-                </HBox>
-
-                <Separator />
-
-            </children>
-        </VBox>
-    </top>
-
-    <!-- ===== PANEL IZQUIERDO (sidebar estilo Dashboard) ===== -->
-    <left>
-        <HBox BorderPane.alignment="TOP_LEFT">
-            <children>
-                <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
-                    <children>
-                        <!-- Botón principal -->
-                        <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308"
-                                mnemonicParsing="false" prefHeight="60.0"
-                                styleClass="button-start" text="Añadir actividad"
-                                textAlignment="CENTER" wrapText="true">
-                            <VBox.margin>
-                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                            </VBox.margin>
-                        </Button>
-
-                        <Separator />
-
-                        <Button fx:id="btnResumenGeneral" maxWidth="1.7976931348623157E308"
-                                mnemonicParsing="false" onAction="#handleVolver"
-                                styleClass="button-secondary" text="🏠  Resumen General"
-                                style="-fx-alignment: CENTER_LEFT; -fx-border-color: transparent; -fx-font-weight: bold; -fx-font-size: 14px;">
-                            <padding>
-                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-                            </padding>
-                        </Button>
-
-                        <Separator />
-
-                        <Label text="Lista de Actividades">
-                            <font><Font name="System Bold" size="13.0" /></font>
-                            <padding>
-                                <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </Label>
-                        <ListView fx:id="map_listview" onMouseClicked="#listClicked"
-                                  VBox.vgrow="ALWAYS" />
-                    </children>
-                </VBox>
-                <Separator orientation="VERTICAL" />
-            </children>
-        </HBox>
-    </left>
-
-    <!-- ===== CONTENIDO CENTRAL (Mapa + Panel Stats) ===== -->
-    <center>
-        <SplitPane fx:id="splitPane" dividerPositions="0.65" VBox.vgrow="ALWAYS">
-            <items>
-
-                <!-- Mapa con Zoom superpuesto -->
-                <StackPane SplitPane.resizableWithParent="true">
-                    <children>
-                        <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" vbarPolicy="ALWAYS">
-                            <content>
-                                <Group>
-                                    <Pane fx:id="map_pane">
-                                        <children>
-                                            <ImageView fx:id="map_imageview" pickOnBounds="true" />
-                                        </children>
-                                    </Pane>
-                                </Group>
-                            </content>
-                        </ScrollPane>
-
-                        <!-- Controles de Zoom superpuestos -->
-                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                              spacing="10.0" styleClass="map-overlay-zoom"
-                              StackPane.alignment="BOTTOM_CENTER">
-                            <children>
-                                <Label text="Zoom" />
-                                <Button mnemonicParsing="false" onAction="#zoomOut" text="-"
-                                        styleClass="button-secondary" />
-                                <Slider fx:id="zoom_slider" prefWidth="150.0" />
-                                <Button mnemonicParsing="false" onAction="#zoomIn" text="+"
-                                        styleClass="button-secondary" />
-                            </children>
-                            <StackPane.margin>
-                                <Insets bottom="20.0" />
-                            </StackPane.margin>
-                        </HBox>
-                    </children>
-                </StackPane>
-
-                <!-- Panel derecho: Slider + Stats cards + Gráfica -->
-                <VBox spacing="12.0" styleClass="stats-panel"
-                      SplitPane.resizableWithParent="true">
-                    <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                    </padding>
-                    <children>
-
-                        <!-- Título -->
-                        <Label styleClass="label-title" text="Detalles" />
-
-                        <!-- Tarjeta: Slider de progreso -->
-                        <VBox styleClass="card" spacing="6.0">
-                            <children>
-                                <Label styleClass="label-secondary" text="Progreso en ruta" />
-                                <Slider fx:id="progresoSlider" min="0" max="100" value="0"
-                                        showTickMarks="true" showTickLabels="true"
-                                        majorTickUnit="25" blockIncrement="5" />
-                                <Label fx:id="posicionSliderLabel"
-                                       styleClass="label-secondary" text="0,0 km" />
-                            </children>
-                        </VBox>
-
-                        <!-- Tarjeta: Ritmo medio -->
-                        <VBox alignment="TOP_LEFT" spacing="8.0" styleClass="card">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                    <children>
-                                        <Label styleClass="label-secondary" text="Ritmo medio:" />
-                                        <Label text="🏃">
-                                            <font><Font size="20.0" /></font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                                <Label fx:id="ritmoLabel" styleClass="label-metric"
-                                       text="4:50 min/km" />
-                            </children>
-                        </VBox>
-
-                        <!-- Tarjeta: Velocidad media -->
-                        <VBox alignment="TOP_LEFT" spacing="8.0" styleClass="card">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                    <children>
-                                        <Label styleClass="label-secondary" text="Velocidad media:" />
-                                        <Label text="⚡">
-                                            <font><Font size="20.0" /></font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                                <Label fx:id="velocidadLabel" styleClass="label-metric"
-                                       text="12,4 km/h" />
-                            </children>
-                        </VBox>
-
-                        <!-- Tarjeta: Altitud -->
-                        <VBox alignment="TOP_LEFT" spacing="8.0" styleClass="card">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                    <children>
-                                        <Label styleClass="label-secondary" text="Altitud máxima:" />
-                                        <Label text="⬆">
-                                            <font><Font size="20.0" /></font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                                <Label fx:id="altitudLabel" styleClass="label-metric"
-                                       text="450 m" />
-                                <Label styleClass="label-secondary" text="Desnivel: +10 m" />
-                            </children>
-                        </VBox>
-
-                        <!-- Gráfica de altitud -->
-                        <LineChart fx:id="altitudChart" animated="false"
-                                   title="Perfil de altitud" VBox.vgrow="ALWAYS">
-                            <xAxis>
-                                <NumberAxis fx:id="ejeDistancia" autoRanging="false"
-                                            label="Distancia (km)" lowerBound="0"
-                                            tickUnit="0.5" upperBound="13" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis fx:id="ejeAltitud" autoRanging="false"
-                                            label="Altitud (m)" lowerBound="0"
-                                            tickUnit="250" upperBound="1500" />
-                            </yAxis>
-                        </LineChart>
-
-                    </children>
-                </VBox>
-
-            </items>
-        </SplitPane>
-    </center>
-
-    <!-- ===== BARRA DE ESTADO INFERIOR ===== -->
-    <bottom>
-        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
-            <children>
-                <Label fx:id="mousePosition" minHeight="-Infinity" minWidth="-Infinity"
-                       text="SceneX:     SceneY:     " wrapText="true"
-                       HBox.hgrow="ALWAYS" />
-            </children>
-            <BorderPane.margin>
-                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-            </BorderPane.margin>
-        </HBox>
-    </bottom>
-
-</BorderPane>
+<VBox stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.MapaConGraficaController">
+   <children>
+      <fx:include source="TopBar.fxml" />
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      
+          <!-- ===== BARRA SUPERIOR (igual que Dashboard) ===== -->
+          <top>
+              <VBox BorderPane.alignment="CENTER">
+                  <children>
+                      <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="top-bar">
+                          <children>
+                              <Label fx:id="avatarLabel" text="👤" />
+                              <Label fx:id="usuarioLabel" text="Hola, jpgarcia" />
+      
+                              <Region HBox.hgrow="ALWAYS" />
+      
+                              <Hyperlink fx:id="gestionMapasLink" onAction="#handleGoToMapManagement" text="Gestión de Mapas" underline="true">
+                                  <font><Font size="14.0" /></font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="miPerfilLink" onAction="#handleGoToProfile" text="Editar Perfil" underline="true">
+                                  <font><Font size="14.0" /></font>
+                              </Hyperlink>
+      
+                              <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" text="Cerrar sesión" />
+                              <Button fx:id="ajustesButton" mnemonicParsing="false"
+                                      prefHeight="35.0" prefWidth="45.0" text="⚙">
+                                  <font><Font size="16.0" /></font>
+                              </Button>
+                          </children>
+                          <padding>
+                              <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+                          </padding>
+                      </HBox>
+      
+                      <Separator />
+      
+                  </children>
+              </VBox>
+          </top>
+      
+          <!-- ===== PANEL IZQUIERDO (sidebar estilo Dashboard) ===== -->
+          <left>
+              <HBox BorderPane.alignment="TOP_LEFT">
+                  <children>
+                      <VBox maxHeight="1.7976931348623157E308" prefWidth="180.0" spacing="0.0" styleClass="sidebar" HBox.hgrow="ALWAYS">
+                          <children>
+                              <!-- Botón principal -->
+                              <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308"
+                                      mnemonicParsing="false" prefHeight="60.0"
+                                      styleClass="button-start" text="Añadir actividad"
+                                      textAlignment="CENTER" wrapText="true">
+                                  <VBox.margin>
+                                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                  </VBox.margin>
+                              </Button>
+      
+                              <Separator />
+      
+                              <Button fx:id="btnResumenGeneral" maxWidth="1.7976931348623157E308"
+                                      mnemonicParsing="false" onAction="#handleVolver"
+                                      styleClass="button-secondary" text="🏠  Resumen General"
+                                      style="-fx-alignment: CENTER_LEFT; -fx-border-color: transparent; -fx-font-weight: bold; -fx-font-size: 14px;">
+                                  <padding>
+                                      <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                                  </padding>
+                              </Button>
+      
+                              <Separator />
+      
+                              <Label text="Lista de Actividades">
+                                  <font><Font name="System Bold" size="13.0" /></font>
+                                  <padding>
+                                      <Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+                                  </padding>
+                              </Label>
+                              <ListView fx:id="map_listview" onMouseClicked="#listClicked"
+                                        VBox.vgrow="ALWAYS" />
+                          </children>
+                      </VBox>
+                      <Separator orientation="VERTICAL" />
+                  </children>
+              </HBox>
+          </left>
+      
+          <!-- ===== CONTENIDO CENTRAL (Mapa + Panel Stats) ===== -->
+          <center>
+              <SplitPane fx:id="splitPane" dividerPositions="0.65" VBox.vgrow="ALWAYS">
+                  <items>
+      
+                      <!-- Mapa con Zoom superpuesto -->
+                      <StackPane SplitPane.resizableWithParent="true">
+                          <children>
+                              <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" vbarPolicy="ALWAYS">
+                                  <content>
+                                      <Group>
+                                          <Pane fx:id="map_pane">
+                                              <children>
+                                                  <ImageView fx:id="map_imageview" pickOnBounds="true" />
+                                              </children>
+                                          </Pane>
+                                      </Group>
+                                  </content>
+                              </ScrollPane>
+      
+                              <!-- Controles de Zoom superpuestos -->
+                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                                    spacing="10.0" styleClass="map-overlay-zoom"
+                                    StackPane.alignment="BOTTOM_CENTER">
+                                  <children>
+                                      <Label text="Zoom" />
+                                      <Button mnemonicParsing="false" onAction="#zoomOut" text="-"
+                                              styleClass="button-secondary" />
+                                      <Slider fx:id="zoom_slider" prefWidth="150.0" />
+                                      <Button mnemonicParsing="false" onAction="#zoomIn" text="+"
+                                              styleClass="button-secondary" />
+                                  </children>
+                                  <StackPane.margin>
+                                      <Insets bottom="20.0" />
+                                  </StackPane.margin>
+                              </HBox>
+                          </children>
+                      </StackPane>
+      
+                      <!-- Panel derecho: Slider + Stats cards + Gráfica -->
+                      <VBox spacing="12.0" styleClass="stats-panel"
+                            SplitPane.resizableWithParent="true">
+                          <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                          </padding>
+                          <children>
+      
+                              <!-- Título -->
+                              <Label styleClass="label-title" text="Detalles" />
+      
+                              <!-- Tarjeta: Slider de progreso -->
+                              <VBox styleClass="card" spacing="6.0">
+                                  <children>
+                                      <Label styleClass="label-secondary" text="Progreso en ruta" />
+                                      <Slider fx:id="progresoSlider" min="0" max="100" value="0"
+                                              showTickMarks="true" showTickLabels="true"
+                                              majorTickUnit="25" blockIncrement="5" />
+                                      <Label fx:id="posicionSliderLabel"
+                                             styleClass="label-secondary" text="0,0 km" />
+                                  </children>
+                              </VBox>
+      
+                              <!-- Tarjeta: Ritmo medio -->
+                              <VBox alignment="TOP_LEFT" spacing="8.0" styleClass="card">
+                                  <children>
+                                      <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                          <children>
+                                              <Label styleClass="label-secondary" text="Ritmo medio:" />
+                                              <Label text="🏃">
+                                                  <font><Font size="20.0" /></font>
+                                              </Label>
+                                          </children>
+                                      </HBox>
+                                      <Label fx:id="ritmoLabel" styleClass="label-metric"
+                                             text="4:50 min/km" />
+                                  </children>
+                              </VBox>
+      
+                              <!-- Tarjeta: Velocidad media -->
+                              <VBox alignment="TOP_LEFT" spacing="8.0" styleClass="card">
+                                  <children>
+                                      <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                          <children>
+                                              <Label styleClass="label-secondary" text="Velocidad media:" />
+                                              <Label text="⚡">
+                                                  <font><Font size="20.0" /></font>
+                                              </Label>
+                                          </children>
+                                      </HBox>
+                                      <Label fx:id="velocidadLabel" styleClass="label-metric"
+                                             text="12,4 km/h" />
+                                  </children>
+                              </VBox>
+      
+                              <!-- Tarjeta: Altitud -->
+                              <VBox alignment="TOP_LEFT" spacing="8.0" styleClass="card">
+                                  <children>
+                                      <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                          <children>
+                                              <Label styleClass="label-secondary" text="Altitud máxima:" />
+                                              <Label text="⬆">
+                                                  <font><Font size="20.0" /></font>
+                                              </Label>
+                                          </children>
+                                      </HBox>
+                                      <Label fx:id="altitudLabel" styleClass="label-metric"
+                                             text="450 m" />
+                                      <Label styleClass="label-secondary" text="Desnivel: +10 m" />
+                                  </children>
+                              </VBox>
+      
+                              <!-- Gráfica de altitud -->
+                              <LineChart fx:id="altitudChart" animated="false"
+                                         title="Perfil de altitud" VBox.vgrow="ALWAYS">
+                                  <xAxis>
+                                      <NumberAxis fx:id="ejeDistancia" autoRanging="false"
+                                                  label="Distancia (km)" lowerBound="0"
+                                                  tickUnit="0.5" upperBound="13" />
+                                  </xAxis>
+                                  <yAxis>
+                                      <NumberAxis fx:id="ejeAltitud" autoRanging="false"
+                                                  label="Altitud (m)" lowerBound="0"
+                                                  tickUnit="250" upperBound="1500" />
+                                  </yAxis>
+                              </LineChart>
+      
+                          </children>
+                      </VBox>
+      
+                  </items>
+              </SplitPane>
+          </center>
+      
+          <!-- ===== BARRA DE ESTADO INFERIOR ===== -->
+          <bottom>
+              <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                  <children>
+                      <Label fx:id="mousePosition" minHeight="-Infinity" minWidth="-Infinity"
+                             text="SceneX:     SceneY:     " wrapText="true"
+                             HBox.hgrow="ALWAYS" />
+                  </children>
+                  <BorderPane.margin>
+                      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                  </BorderPane.margin>
+              </HBox>
+          </bottom>
+      
+      </BorderPane>
+   </children>
+</VBox>

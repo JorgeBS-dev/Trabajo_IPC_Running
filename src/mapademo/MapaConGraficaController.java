@@ -36,6 +36,8 @@ public class MapaConGraficaController {
     @FXML private ListView<Activity> map_listview;
     @FXML private Label usuarioLabel;
     @FXML private Label avatarLabel;
+    @FXML private Slider progresoSlider;
+    @FXML private Label posicionSliderLabel;
 
     private Activity currentActivity;
     private Polyline route;

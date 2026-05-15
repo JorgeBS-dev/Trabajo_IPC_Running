@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox fx:id="windowBar" alignment="CENTER_LEFT" onMouseDragged="#handleMouseDragged" onMousePressed="#handleMousePressed" prefHeight="35.0" spacing="10.0" styleClass="window-bar" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mapademo.TopBarController">
+   <children>
+      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@iconoapp2.png" />
+         </image>
+      </ImageView>
+      <Label text="Running La Safor" />
+      <Region HBox.hgrow="ALWAYS" />
+      <HBox alignment="CENTER_RIGHT" spacing="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleMinimize" text="—" />
+            <Button fx:id="btnMaximize" mnemonicParsing="false" onAction="#handleMaximize" text="⬜" />
+            <Button mnemonicParsing="false" onAction="#handleClose" styleClass="button-close" text="✕" />
+         </children>
+      </HBox>
+   </children>
+</HBox>

@@ -70,10 +70,10 @@ public class RegisterController {
         });
 
         // Password focus and validation
-        passwordField.focusedProperty().addListener((obs, oldV, newV) -> {
-            passRequirementsBox.setVisible(newV);
-            passRequirementsBox.setManaged(newV);
-        });
+        passRequirementsBox.visibleProperty().bind(
+            passwordField.focusedProperty().or(passwordTextField.focusedProperty())
+        );
+        passRequirementsBox.managedProperty().bind(passRequirementsBox.visibleProperty());
 
         passwordField.textProperty().addListener((obs, oldV, newV) -> {
             validatePassword(newV);
@@ -90,12 +90,14 @@ public class RegisterController {
                 passwordField.setManaged(false);
                 passwordTextField.setVisible(true);
                 passwordTextField.setManaged(true);
+                passwordTextField.requestFocus();
                 togglePasswordButton.setText("🙈");
             } else {
                 passwordField.setVisible(true);
                 passwordField.setManaged(true);
                 passwordTextField.setVisible(false);
                 passwordTextField.setManaged(false);
+                passwordField.requestFocus();
                 togglePasswordButton.setText("👁");
             }
         });
@@ -106,12 +108,14 @@ public class RegisterController {
                 confirmPasswordField.setManaged(false);
                 confirmPasswordTextField.setVisible(true);
                 confirmPasswordTextField.setManaged(true);
+                confirmPasswordTextField.requestFocus();
                 toggleConfirmPasswordButton.setText("🙈");
             } else {
                 confirmPasswordField.setVisible(true);
                 confirmPasswordField.setManaged(true);
                 confirmPasswordTextField.setVisible(false);
                 confirmPasswordTextField.setManaged(false);
+                confirmPasswordField.requestFocus();
                 toggleConfirmPasswordButton.setText("👁");
             }
         });

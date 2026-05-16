@@ -1,6 +1,8 @@
 package mapademo;
 
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -18,6 +20,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Scale;
 import upv.ipc.sportlib.*;
 import java.io.File;
 import java.util.List;
@@ -56,17 +59,43 @@ public class MapaConGraficaController {
 
         // Listener para que el zoom se mantenga centrado en la vista actual
         zoom_slider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            double h = map_scrollpane.getHvalue();
-            double v = map_scrollpane.getVvalue();
+            double newScale = newVal.doubleValue();
             
-            map_pane.setScaleX(newVal.doubleValue());
-            map_pane.setScaleY(newVal.doubleValue());
+            // 1. Obtener el punto central actual del visor (viewport)
+            Bounds viewportBounds = map_scrollpane.getViewportBounds();
+            double centerX = viewportBounds.getWidth() / 2;
+            double centerY = viewportBounds.getHeight() / 2;
             
-            // Re-aplicamos el scroll relativo para que el zoom parezca centrado
-            // Usamos Platform.runLater para asegurar que el scrollpane ha actualizado sus límites
+            // 2. Convertir ese punto central a coordenadas locales del mapa (map_pane)
+            // Esto nos dice qué punto geográfico/del mapa estamos mirando justo ahora
+            Point2D centerInScene = map_scrollpane.localToScene(centerX, centerY);
+            Point2D centerInMap = map_pane.sceneToLocal(centerInScene);
+
+            // 3. Aplicar el zoom usando una transformación con pivote fijo en (0,0)
+            // Usar setScaleX/Y suele pivotar en el centro, lo que causa desplazamientos raros
+            map_pane.getTransforms().setAll(new Scale(newScale, newScale, 0, 0));
+
+            // 4. Forzar layout y re-centrar en el siguiente pulso
             javafx.application.Platform.runLater(() -> {
-                map_scrollpane.setHvalue(h);
-                map_scrollpane.setVvalue(v);
+                // Ver dónde ha acabado nuestro punto de interés tras el zoom
+                Point2D newPointInScene = map_pane.localToScene(centerInMap);
+                Point2D newPointInViewport = map_scrollpane.sceneToLocal(newPointInScene);
+
+                // Calcular cuánto se ha movido respecto al centro del visor
+                double deltaX = newPointInViewport.getX() - centerX;
+                double deltaY = newPointInViewport.getY() - centerY;
+
+                // Ajustar el scroll para compensar ese movimiento exactamente
+                Bounds contentBounds = map_scrollpane.getContent().getBoundsInParent();
+                double hRange = contentBounds.getWidth() - map_scrollpane.getViewportBounds().getWidth();
+                double vRange = contentBounds.getHeight() - map_scrollpane.getViewportBounds().getHeight();
+
+                if (hRange > 0) {
+                    map_scrollpane.setHvalue(map_scrollpane.getHvalue() + deltaX / hRange);
+                }
+                if (vRange > 0) {
+                    map_scrollpane.setVvalue(map_scrollpane.getVvalue() + deltaY / vRange);
+                }
             });
         });
 

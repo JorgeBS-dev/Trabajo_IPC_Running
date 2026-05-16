@@ -117,11 +117,13 @@
                               <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#showPosition" pannable="true" vbarPolicy="ALWAYS">
                                   <content>
                                       <Group>
-                                          <Pane fx:id="map_pane">
-                                              <children>
-                                                  <ImageView fx:id="map_imageview" pickOnBounds="true" />
-                                              </children>
-                                          </Pane>
+                                          <children>
+                                              <Pane fx:id="map_pane">
+                                                  <children>
+                                                      <ImageView fx:id="map_imageview" pickOnBounds="true" />
+                                                  </children>
+                                              </Pane>
+                                          </children>
                                       </Group>
                                   </content>
                               </ScrollPane>

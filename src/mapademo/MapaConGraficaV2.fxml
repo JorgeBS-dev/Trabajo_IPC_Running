@@ -70,7 +70,7 @@
                           <children>
                               <!-- Botón principal -->
                               <Button fx:id="importarGPXButton" maxWidth="1.7976931348623157E308"
-                                      mnemonicParsing="false" prefHeight="60.0"
+                                      mnemonicParsing="false" onAction="#handleImportGPX" prefHeight="60.0"
                                       styleClass="button-start" text="Añadir actividad"
                                       textAlignment="CENTER" wrapText="true">
                                   <VBox.margin>

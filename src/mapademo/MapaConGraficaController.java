@@ -8,6 +8,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -249,6 +250,31 @@ public class MapaConGraficaController {
     @FXML
     private void handleGoToProfile() {
         Navigation.loadScene("AjustesPerfil.fxml", "Running la Safor - Ajustes de Perfil");
+    }
+
+    @FXML
+    private void handleImportGPX() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importar Actividad GPX");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos GPX", "*.gpx"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            Activity activity = app.importActivity(file);
+            if (activity != null) {
+                TextInputDialog dialog = new TextInputDialog(activity.getName());
+                dialog.setTitle("Nombre de la actividad");
+                dialog.setHeaderText("¿Qué nombre quieres darle a la actividad?");
+                dialog.setContentText("Nombre:");
+                dialog.showAndWait().ifPresent(name -> {
+                    if (!name.trim().isEmpty()) {
+                        app.renameActivity(activity, name);
+                    }
+                });
+                
+                refreshActivities();
+                setActivity(activity);
+            }
+        }
     }
 
     @FXML

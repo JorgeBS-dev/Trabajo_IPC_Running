@@ -22,6 +22,10 @@ public class MapaDemoApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.setWidth(1200);
+        stage.setHeight(800);
+        stage.centerOnScreen();
+        stage.setResizable(true);
         Navigation.setStage(stage);
         Navigation.loadScene("InicioSesionV2.fxml", "Running la Safor - Inicio de Sesión");
     }

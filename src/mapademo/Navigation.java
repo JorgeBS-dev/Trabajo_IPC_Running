@@ -15,12 +15,12 @@ public class Navigation {
     public static void setStage(Stage stage) {
         Navigation.stage = stage;
         
-        // Ajustar al tamaño de la pantalla respetando la barra de tareas
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX(visualBounds.getMinX());
-        stage.setY(visualBounds.getMinY());
-        stage.setWidth(visualBounds.getWidth());
-        stage.setHeight(visualBounds.getHeight());
+        // Navigation.stage.setWidth(visualBounds.getWidth());
+        // Navigation.stage.setHeight(visualBounds.getHeight());
+        
+        // Establecer un tamaño mínimo por defecto
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         
         // Set app icon
         try {
@@ -44,10 +44,7 @@ public class Navigation {
         stage.setTitle(title);
         stage.show();
         
-        // Reforzar el tamaño en cada cambio de escena
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-        stage.setWidth(visualBounds.getWidth());
-        stage.setHeight(visualBounds.getHeight());
+        ResizeHelper.addResizeListener(stage);
     }
 
     public static void loadScene(String fxmlFile, String title) {
@@ -63,10 +60,7 @@ public class Navigation {
             stage.setTitle(title);
             stage.show();
             
-            // Reforzar el tamaño en cada cambio de escena
-            Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-            stage.setWidth(visualBounds.getWidth());
-            stage.setHeight(visualBounds.getHeight());
+            ResizeHelper.addResizeListener(stage);
         } catch (IOException e) {
             e.printStackTrace();
         }
